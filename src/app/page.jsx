@@ -12,7 +12,7 @@ export default function Home() {
 	return (
 		<main>
 			<Hero />
-            <p>{search}</p>
+            {/* <p>{search}</p> */}
             <SearchBar onChange={setSearch} setSize={setSize} size={size % 3 + 1} />
             <SnippitLoader size={size % 3 + 1} />
 		</main>

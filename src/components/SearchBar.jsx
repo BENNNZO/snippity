@@ -34,12 +34,6 @@ export default function SearchBar(props) {
                     className='invert rotate-90 opacity-70 cursor-pointer'
                 />
             </div>
-            {/* <Image 
-                src={props.size === 1 ? Large : props.size === 2 ? Medium : Small}
-                alt='change layout'
-                className='h-7 bg-black rounded-md p-1 w-12 invert'
-                onClick={() => props.setSize(prev => prev + 1)}
-            /> */}
             <div className='flex flex-row h-[30px] gap-1 w-14' onClick={() => props.setSize(prev => prev + 1)}>
                 {[...Array(props.size)].map(() => (
                     <span className='w-full h-full bg-primary-button/40 backdrop-blur-md rounded-sm border-secondary-button/10 border' />
