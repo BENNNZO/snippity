@@ -7,8 +7,8 @@ import Image from 'next/image';
 
 import HeartOutline from "@/assets/svg/heart-outline.svg"
 import HeartFilled from "@/assets/svg/heart.svg"
-import ArrowUp from "@/assets/svg/arrow-up.svg"
-import ArrowDown from "@/assets/svg/arrow-down.svg"
+import ArrowUp from "@/assets/svg/caret-up-outline.svg"
+import ArrowDown from "@/assets/svg/caret-down-outline.svg"
 import CopyIcon from "@/assets/svg/copy-outline.svg"
 import Checkmark from "@/assets/svg/checkmark-outline.svg"
 
