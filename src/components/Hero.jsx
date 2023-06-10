@@ -7,7 +7,7 @@ export default function Hero() {
 
 
     return (
-        <section className='h-screen'>
+        <section className='h-screen select-none'>
             <div className='absolute_center'>
                 {/* <div className="flex flex-row gap-2 absolute bottom-full left-0 mb-5">
                     <div>
@@ -48,7 +48,7 @@ export default function Hero() {
                     transition={{ delay: 4.5 }}
                     className='text-text/50 text-center mt-5 text-xl'
                 >
-                        let Snippity = "The home of copy paste."
+                        let Snippity = "The home of copy & paste."
                 </motion.p>
             </div>
         </section>
