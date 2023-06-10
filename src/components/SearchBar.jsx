@@ -4,12 +4,16 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import SearchIcon from "@/assets/svg/search-outline.svg"
 
-export default function SearchBar() {
+export default function SearchBar(props) {
     const [search, setSearch] = useState("")
+
+    useEffect(() => {
+        props.onChange(search)
+    }, [search])
 
     return (
         <div className='p-5 sticky top-0 grid place-items-center z-10'>
-            <div className='w-1/4 flex flex-row bg-primary-button/40 px-3 backdrop-blur-md rounded-full'>
+            <div className='w-1/4 flex flex-row bg-primary-button/40 px-3 backdrop-blur-md rounded-full border border-secondary-button/10'>
                 <input 
                     type="text" 
                     className='bg-transparent w-full shadow-lg text-text h-7 focus:outline-none'

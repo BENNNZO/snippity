@@ -55,38 +55,40 @@ export default function Snippit(props) {
             >
                 {props.code}
             </SyntaxHighlighter>
-            <div className='text-text/50 flex flex-row gap-3 px-3 pt-2 cursor-pointer'>
-                {props.tags.map(e => (
-                    <p className='hover:underline'>#{e}</p>
-                ))}
-            </div>
-            <div className='p-3 flex flex-row gap-5 select-none'>
-                <div className='flex flex-row gap-2'>
+            <div className='flex flex-row-reverse justify-between'>
+                <div className='text-text/50 flex flex-row gap-3 px-3 py-1 cursor-pointer'>
+                    {props.tags.map(e => (
+                        <p className='hover:underline'>#{e}</p>
+                    ))}
+                </div>
+                <div className='px-3 py-1 flex flex-row gap-5 select-none'>
+                    <div className='flex flex-row gap-2'>
+                        <Image 
+                            src={ArrowUp}
+                            width={20}
+                            height={20}
+                            alt='up vote'
+                            className='cursor-pointer'
+                        />
+                        <p className='text-text'>
+                            {props.votes}
+                        </p>
+                        <Image 
+                            src={ArrowDown}
+                            width={20}
+                            height={20}
+                            alt='down vote'
+                            className='cursor-pointer'
+                        />
+                    </div>
                     <Image 
-                        src={ArrowUp}
+                        src={props.favorite ? HeartFilled : HeartOutline}
                         width={20}
                         height={20}
-                        alt='up vote'
-                        className='cursor-pointer'
-                    />
-                    <p className='text-text'>
-                        {props.votes}
-                    </p>
-                    <Image 
-                        src={ArrowDown}
-                        width={20}
-                        height={20}
-                        alt='down vote'
+                        alt='favorite'
                         className='cursor-pointer'
                     />
                 </div>
-                <Image 
-                    src={props.favorite ? HeartFilled : HeartOutline}
-                    width={20}
-                    height={20}
-                    alt='favorite'
-                    className='cursor-pointer'
-                />
             </div>
         </div>
     )

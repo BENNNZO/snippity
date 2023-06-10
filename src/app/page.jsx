@@ -1,13 +1,18 @@
-import React from 'react';
+"use client"
+
+import React, { useState } from 'react';
 import Hero from "@/components/Hero"
 import SnippitLoader from '@/components/SnippitLoader';
 import SearchBar from '@/components/SearchBar';
 
-export default function Home() {	
+export default function Home() {
+    const [search, setSearch] = useState("")
+
 	return (
-		<main className='' >
+		<main>
 			<Hero />
-            <SearchBar />
+            <p>{search}</p>
+            <SearchBar onChange={setSearch} />
             <SnippitLoader />
 		</main>
 	)
