@@ -1,0 +1,80 @@
+@import url('https://fonts.cdnfonts.com/css/cascadia-code');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	font-family: 'Cascadia Code', sans-serif;
+}
+
+.absolute_center {
+	@apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+
+.hero_text {
+	@apply overflow-hidden w-full whitespace-nowrap;
+	font-variant-ligatures: none;
+	animation: 
+		text_typing_01 1s steps(12) forwards,
+		text_typing_02 0s 3.5s forwards,
+		text_typing_03 0s 4s forwards
+}
+
+.text_cursor {
+	@apply h-[80%] w-4 bg-text absolute top-0 left-[102%];
+	animation: 
+		text_cursor_01 1s step-end,
+		text_cursor_01 1s 1s step-end,
+		/* text_cursor_01 1s 3.2s step-end, */
+		text_cursor_01 1s 4s step-end infinite,
+		text_cursor_02 1s steps(12),
+		text_cursor_03 1s 2.2s ease-in-out forwards,
+		text_cursor_04 0s 4s forwards
+}
+
+.text_highlight {
+	@apply absolute w-0 h-[80%] rounded-lg top-0 right-[-2%] bg-blue-600/30;
+	animation:
+		text_highlight_01 1s 2.2s ease-in-out forwards,
+		text_highlight_02 0s 3.5s forwards
+}
+
+/* typing effect */
+@keyframes text_typing_01 {
+	from { width: 0 }
+}
+
+@keyframes text_typing_02 {
+	to { width: 0 }
+}
+
+@keyframes text_typing_03 {
+	to { width: 100% }
+}
+
+/* highlight effect */
+@keyframes text_highlight_01 {
+	to { width: 104% }
+}
+
+@keyframes text_highlight_02 {
+	to { width: 0% }
+}
+
+/* cursor blinking */
+@keyframes text_cursor_01 {
+	50% { @apply bg-transparent }
+}
+
+@keyframes text_cursor_02 {
+	from { left: 0% }
+}
+
+@keyframes text_cursor_03 {
+	to { left: -3% }
+}
+
+@keyframes text_cursor_04 {
+	from { left: 0% }
+	to { left: 102% }
+}
