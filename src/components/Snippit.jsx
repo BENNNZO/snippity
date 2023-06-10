@@ -48,6 +48,7 @@ export default function Snippit(props) {
                 />
             </div>
             <div className='mx-1 shadow-md rounded-lg overflow-hidden'>
+            {/* <div className='overflow-hidden'> */}
                 <SyntaxHighlighter 
                     language={props.language}
                     style={gradientDark}

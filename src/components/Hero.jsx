@@ -6,19 +6,24 @@ import Image from 'next/image';
 import ArrowDown from "@/assets/svg/chevron-down-outline.svg"
 
 export default function Hero() {
-    const { scrollYProgress } = useScroll()
-    const { yTransform } = useTransform(scrollYProgress, [0, 100], [1, 0])
+    const { scrollY } = useScroll()
+    const height = useTransform(scrollY, [0, 500], ["100vh", "50vh"])
+    const x = useTransform(scrollY, [0, 500], ["0vw", "10vw"])
+    const opacity = useTransform(scrollY, [0, 250, 500], [1, 0.25, 0])
 
     return (
-        <section className='h-screen select-none relative'>
+        <motion.section 
+            className='select-none relative'
+            style={{ height }}
+        >
             <div className='absolute_center'>
-                <div className='hero_text'>
+                <motion.div className='hero_text'>
                     <h1 className='text-9xl text-red-400 leading-normal inline-block'>{`<`}</h1>
                     <h1 className='text-9xl text-yellow-300 leading-normal inline-block'>{`Snippity`}</h1>
                     <h1 className='text-9xl text-red-400 leading-normal inline-block'>{`/>`}</h1>
                     <span className='text_highlight' />
                     <span className='text_cursor' />
-                </div>
+                </motion.div>
                 <motion.p 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -29,9 +34,10 @@ export default function Hero() {
                 </motion.p>
             </div>
             <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: yTransform }}
-                transition={{ duration: 1, Infinity, repeatType: "mirror" }}
+                // initial={{ opacity: 0 }}
+                // animate={{ opacity: 0.5 }}
+                // transition={{ duration: 1, Infinity, repeatType: "mirror" }}
+                style={{ opacity }}
             >
                 <Image 
                     src={ArrowDown}
@@ -41,6 +47,6 @@ export default function Hero() {
                     className='invert opacity-50 absolute bottom-0 left-1/2 -translate-x-1/2'
                 />
             </motion.div>
-        </section>
+        </motion.section>
     )
 }

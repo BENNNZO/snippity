@@ -3,7 +3,7 @@
 import React from 'react';
 import Snippit from './Snippit';
 
-export default function SnippitLoader() {
+export default function SnippitLoader(props) {
     
     const snippits = [
         {
@@ -58,7 +58,7 @@ export default function Snippit(props) {
     )
 }`,
             tags: ["apple", "trackpad"],
-            votes: 54,
+            votes: 32,
             favorite: true
         },
         {
@@ -80,9 +80,9 @@ export default function Snippit(props) {
         </SyntaxHighlighter>
     )
 }`,
-            tags: ["apple", "trackpad"],
-            votes: 54,
-            favorite: true
+            tags: ["jsx", "syntax"],
+            votes: 12,
+            favorite: false
         },
         {
             title: "random 01",
@@ -98,14 +98,14 @@ export default function Snippit(props) {
     </main>
 )`,
             tags: ["apple", "trackpad"],
-            votes: 54,
+            votes: 8,
             favorite: true
         }
     ]
     
     return (
         <div className="px-20 pb-20">
-            <div className="grid grid-cols-2 gap-10">
+            <div className={`grid grid-cols-${props.size} gap-5`}>
                 {snippits.map((e, i) => (
                     <Snippit key={i} code={e.code} title={e.title} tags={e.tags} votes={e.votes} favorite={e.favorite} />
                 ))}
