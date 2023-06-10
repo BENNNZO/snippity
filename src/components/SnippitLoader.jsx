@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import Snippit from './Snippit';
 
@@ -102,20 +104,11 @@ export default function Snippit(props) {
     ]
     
     return (
-        <div className="grid grid-cols-2 gap-5 items-start px-20 pb-20">
-            <div className="flex flex-col gap-5">
-                {snippits.map((e, i) => {
-                    if (i % 2 !== 1) return (
-                        <Snippit key={i} code={e.code} title={e.title} tags={e.tags} votes={e.votes} favorite={e.favorite} />
-                    )
-                })}
-            </div>
-            <div className="flex flex-col justify-start gap-5">
-                {snippits.map((e, i) => {
-                    if (i % 2 !== 0) return (
-                        <Snippit key={i} code={e.code} title={e.title} tags={e.tags} votes={e.votes} favorite={e.favorite} />
-                    )
-                })}
+        <div className="px-20 pb-20">
+            <div className="grid grid-cols-2 gap-10">
+                {snippits.map((e, i) => (
+                    <Snippit key={i} code={e.code} title={e.title} tags={e.tags} votes={e.votes} favorite={e.favorite} />
+                ))}
             </div>
         </div>
     )

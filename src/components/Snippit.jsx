@@ -29,6 +29,7 @@ export default function Snippit(props) {
     }, [copy])
 
     return (
+        // <div className="bg-background-dark shadow-lg rounded-md overflow-hidden border-2 border-primary-button/50">
         <div className="bg-background-dark shadow-lg rounded-md overflow-hidden">
             <div className="flex flex-row p-3 justify-between items-center max-h-8 select-none">
                 <div className='flex flex-row gap-1'>
@@ -46,15 +47,18 @@ export default function Snippit(props) {
                     onClick={() => setCopy(props.code)}
                 />
             </div>
-            <SyntaxHighlighter 
-                language={props.language}
-                style={gradientDark}
-                customStyle={{ margin: 0, borderRadius: 0, fontWeight: 700, fontSize: "1rem", background: "rgb(0, 0, 0, 0.5)", maxHeight: "500px" }}
-                lineNumberStyle={{ minWidth: "3em", paddingRight: "1.5em", fontStyle: "italic", opacity: 0.25 }}
-                showLineNumbers
-            >
-                {props.code}
-            </SyntaxHighlighter>
+            <div className='mx-1 shadow-md rounded-lg overflow-hidden'>
+                <SyntaxHighlighter 
+                    language={props.language}
+                    style={gradientDark}
+                    customStyle={{ background: "rgb(0, 0, 0, 0.5)" }}
+                    className="h-[500px] bg-black/50"
+                    lineNumberStyle={{ minWidth: "3em", paddingRight: "1.5em", fontStyle: "italic", opacity: 0.25 }}
+                    showLineNumbers
+                >
+                    {props.code}
+                </SyntaxHighlighter>
+            </div>
             <div className='flex flex-row-reverse justify-between'>
                 <div className='text-text/50 flex flex-row gap-3 px-3 py-1 cursor-pointer'>
                     {props.tags.map(e => (
