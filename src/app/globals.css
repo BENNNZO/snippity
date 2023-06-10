@@ -3,6 +3,32 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+	scrollbar-width: auto;
+	scrollbar-color: #12171c #303c55;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+	width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+	background: #131822;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: #303c55;
+	border-radius: 10px;
+	border: 3px solid #131822;
+}
+
+*::-webkit-scrollbar-corner {
+	background: #131822
+}
+
 body {
 	font-family: 'Cascadia Code', sans-serif;
 }
@@ -14,7 +40,7 @@ body {
 .hero_text {
 	@apply overflow-hidden w-full whitespace-nowrap;
 	font-variant-ligatures: none;
-	animation: 
+	animation:
 		text_typing_01 1s steps(11) forwards,
 		text_typing_02 0s 4s forwards,
 		text_typing_03 0s 4.5s forwards
@@ -22,7 +48,7 @@ body {
 
 .text_cursor {
 	@apply h-[80%] w-4 bg-text absolute top-0 rounded-sm left-[102%];
-	animation: 
+	animation:
 		text_cursor_01 1s step-end,
 		text_cursor_01 1s 1s step-end,
 		/* text_cursor_01 1s 3.2s step-end, */
@@ -41,24 +67,34 @@ body {
 
 /* typing effect */
 @keyframes text_typing_01 {
-	from { width: 0 }
+	from {
+		width: 0
+	}
 }
 
 @keyframes text_typing_02 {
-	to { width: 0 }
+	to {
+		width: 0
+	}
 }
 
 @keyframes text_typing_03 {
-	to { width: 100% }
+	to {
+		width: 100%
+	}
 }
 
 /* highlight effect */
 @keyframes text_highlight_01 {
-	to { width: 104% }
+	to {
+		width: 104%
+	}
 }
 
 @keyframes text_highlight_02 {
-	to { width: 0% }
+	to {
+		width: 0%
+	}
 }
 
 /* cursor blinking */
@@ -66,30 +102,44 @@ body {
 	0% {
 		@apply bg-transparent
 	}
+
 	10% {
 		@apply bg-text
 	}
+
 	50% {
 		@apply bg-text
 	}
+
 	60% {
 		@apply bg-transparent
 	}
+
 	100% {
 		@apply bg-transparent
 	}
+
 	/* 50% { @apply bg-transparent } */
 }
 
 @keyframes text_cursor_02 {
-	from { left: 0% }
+	from {
+		left: 0%
+	}
 }
 
 @keyframes text_cursor_03 {
-	to { left: -3% }
+	to {
+		left: -3%
+	}
 }
 
 @keyframes text_cursor_04 {
-	from { left: 0% }
-	to { left: 102% }
+	from {
+		left: 0%
+	}
+
+	to {
+		left: 102%
+	}
 }

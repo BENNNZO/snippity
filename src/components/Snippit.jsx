@@ -12,7 +12,7 @@ import { nightOwl } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export default function Snippit(props) {
     return (
-        <div className="bg-primary-button/70 shadow-lg rounded-xl overflow-hidden">
+        <div className="bg-background-dark shadow-lg rounded-md overflow-hidden">
             <div className="flex flex-row gap-1 p-3">
                 <span className="w-3 h-3 rounded-full bg-red-500"/>
                 <span className="w-3 h-3 rounded-full bg-yellow-300"/>
@@ -21,12 +21,15 @@ export default function Snippit(props) {
             <SyntaxHighlighter 
                 language={props.language}
                 style={gradientDark}
-                customStyle={{ margin: 0, borderRadius: 0, fontWeight: 700, fontSize: "1rem", background: "rgb(0, 0, 0, 0.5)" }}
+                customStyle={{ margin: 0, borderRadius: 0, fontWeight: 700, fontSize: "1rem", background: "rgb(0, 0, 0, 0.5)", maxHeight: "500px" }}
                 lineNumberStyle={{ minWidth: "3em", paddingRight: "1.5em", fontStyle: "italic", opacity: 0.25 }}
                 showLineNumbers
             >
                 {props.code}
             </SyntaxHighlighter>
+            <div>
+                <p>{props.votes}</p>
+            </div>
         </div>
     )
 }
