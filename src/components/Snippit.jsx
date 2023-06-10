@@ -9,7 +9,8 @@ import HeartOutline from "@/assets/svg/heart-outline.svg"
 import HeartFilled from "@/assets/svg/heart.svg"
 import ArrowUp from "@/assets/svg/arrow-up.svg"
 import ArrowDown from "@/assets/svg/arrow-down.svg"
-
+import CopyIcon from "@/assets/svg/copy-outline.svg"
+import Checkmark from "@/assets/svg/checkmark-outline.svg"
 
 // styles
 import { darcula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
@@ -18,12 +19,31 @@ import { gradientDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { nightOwl } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export default function Snippit(props) {
+    const [copy, setCopy] = useState('')
+
+    useEffect(() => {
+        window.navigator.clipboard.writeText(props.code)
+        setTimeout(() => {
+            setCopy("")
+        }, 3000);
+    }, [copy])
+
     return (
         <div className="bg-background-dark shadow-lg rounded-md overflow-hidden">
-            <div className="flex flex-row gap-1 p-3">
-                <span className="w-3 h-3 rounded-full bg-red-500"/>
-                <span className="w-3 h-3 rounded-full bg-yellow-300"/>
-                <span className="w-3 h-3 rounded-full bg-green-500"/>
+            <div className="flex flex-row p-3 justify-between items-center">
+                <div className='flex flex-row gap-1'>
+                    <span className="w-3 h-3 rounded-full bg-red-500"/>
+                    <span className="w-3 h-3 rounded-full bg-yellow-300"/>
+                    <span className="w-3 h-3 rounded-full bg-green-500"/>
+                </div>
+                <Image 
+                    src={props.code === copy ? Checkmark : CopyIcon}
+                    width={20}
+                    height={20}
+                    alt='copy'
+                    className='cursor-pointer'
+                    onClick={() => setCopy(props.code)}
+                />
             </div>
             <SyntaxHighlighter 
                 language={props.language}
