@@ -7,7 +7,7 @@ export default function Hero() {
 
 
     return (
-        <section className='h-screen bg-background'>
+        <section className='h-screen'>
             <div className='absolute_center'>
                 <div className="flex flex-row gap-2 absolute bottom-full left-0 mb-5">
                     <div>
