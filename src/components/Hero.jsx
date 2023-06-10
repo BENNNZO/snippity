@@ -4,21 +4,41 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 export default function Hero() {
+
+
     return (
         <section className='h-screen bg-background'>
             <div className='absolute_center'>
                 <div className="flex flex-row gap-2 absolute bottom-full left-0 mb-5">
                     <div>
-                        <p className='text-text bg-primary-button absolute px-4 py-2 rounded-lg shadow-lg z-10'>CTRL + C</p>
+                        <motion.p 
+                            className='text-text bg-primary-button absolute px-4 py-2 rounded-lg shadow-lg z-10'
+                            animate={{ y: [null, "0.5rem", "0rem"] }}
+                            transition={{ delay: 3, times: [0, 0.2, 1] }}
+                        >
+                            CTRL + C
+                        </motion.p>
                         <p className='text-black bg-black/50 relative px-4 py-2 rounded-lg shadow-lg top-2'>CTRL + C</p>
                     </div>
                     <div>
-                        <p className='text-text bg-primary-button inline-block px-4 py-2 rounded-lg shadow-lg'>CTRL + V</p>
-
+                        <motion.p 
+                            className='text-text bg-primary-button absolute px-4 py-2 rounded-lg shadow-lg z-10'
+                            animate={{ y: [null, "0.5rem", "0rem"] }}
+                            transition={{ delay: 4.2, times: [0, 0.2, 1] }}
+                        >
+                            CTRL + V
+                        </motion.p>
+                        <p className='text-black bg-black/50 relative px-4 py-2 rounded-lg shadow-lg top-2'>CTRL + V</p>
                     </div>
                     <div>
-                        <p className='text-text bg-primary-button inline-block px-4 py-2 rounded-lg shadow-lg'>BACKSPACE</p>
-
+                        <motion.p 
+                            className='text-text bg-primary-button absolute px-4 py-2 rounded-lg shadow-lg z-10'
+                            animate={{ y: [null, "0.5rem", "0rem"] }}
+                            transition={{ delay: 3.8, times: [0, 0.2, 1] }}
+                        >
+                            BACKSPACE
+                        </motion.p>
+                        <p className='text-black bg-black/50 relative px-4 py-2 rounded-lg shadow-lg top-2'>BACKSPACE</p>
                     </div>
                 </div>
                 <div className='hero_text'>

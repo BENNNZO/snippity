@@ -16,8 +16,8 @@ body {
 	font-variant-ligatures: none;
 	animation: 
 		text_typing_01 1s steps(12) forwards,
-		text_typing_02 0s 3.5s forwards,
-		text_typing_03 0s 4s forwards
+		text_typing_02 0s 4s forwards,
+		text_typing_03 0s 4.5s forwards
 }
 
 .text_cursor {
@@ -26,17 +26,17 @@ body {
 		text_cursor_01 1s step-end,
 		text_cursor_01 1s 1s step-end,
 		/* text_cursor_01 1s 3.2s step-end, */
-		text_cursor_01 1s 4s step-end infinite,
+		text_cursor_01 1s 4.5s step-end infinite,
 		text_cursor_02 1s steps(12),
 		text_cursor_03 1s 2.2s ease-in-out forwards,
-		text_cursor_04 0s 4s forwards
+		text_cursor_04 0s 4.5s forwards
 }
 
 .text_highlight {
 	@apply absolute w-0 h-[80%] rounded-lg top-0 right-[-2%] bg-blue-600/30;
 	animation:
 		text_highlight_01 1s 2.2s ease-in-out forwards,
-		text_highlight_02 0s 3.5s forwards
+		text_highlight_02 0s 4s forwards
 }
 
 /* typing effect */
