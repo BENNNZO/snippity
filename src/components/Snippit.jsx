@@ -3,6 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
+import Image from 'next/image';
+
+import HeartOutline from "@/assets/svg/heart-outline.svg"
+import HeartFilled from "@/assets/svg/heart.svg"
+import ArrowUp from "@/assets/svg/arrow-up.svg"
+import ArrowDown from "@/assets/svg/arrow-down.svg"
+
 
 // styles
 import { darcula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
@@ -27,8 +34,30 @@ export default function Snippit(props) {
             >
                 {props.code}
             </SyntaxHighlighter>
-            <div>
-                <p>{props.votes}</p>
+            <div className='p-3 flex flex-row gap-5'>
+                <div className='flex flex-row gap-2'>
+                    <Image 
+                        src={ArrowUp}
+                        width={20}
+                        height={20}
+                        alt='up vote'
+                    />
+                    <p className='text-text'>
+                        {props.votes}
+                    </p>
+                    <Image 
+                        src={ArrowDown}
+                        width={20}
+                        height={20}
+                        alt='down vote'
+                    />
+                </div>
+                <Image 
+                    src={props.favorite ? HeartFilled : HeartOutline}
+                    width={20}
+                    height={20}
+                    alt='favorite'
+                />
             </div>
         </div>
     )
