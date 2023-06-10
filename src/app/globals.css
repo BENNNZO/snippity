@@ -15,19 +15,19 @@ body {
 	@apply overflow-hidden w-full whitespace-nowrap;
 	font-variant-ligatures: none;
 	animation: 
-		text_typing_01 1s steps(12) forwards,
+		text_typing_01 1s steps(11) forwards,
 		text_typing_02 0s 4s forwards,
 		text_typing_03 0s 4.5s forwards
 }
 
 .text_cursor {
-	@apply h-[80%] w-4 bg-text absolute top-0 left-[102%];
+	@apply h-[80%] w-4 bg-text absolute top-0 rounded-sm left-[102%];
 	animation: 
 		text_cursor_01 1s step-end,
 		text_cursor_01 1s 1s step-end,
 		/* text_cursor_01 1s 3.2s step-end, */
-		text_cursor_01 1s 4.5s step-end infinite,
-		text_cursor_02 1s steps(12),
+		text_cursor_01 1s 4.5s ease-out infinite,
+		text_cursor_02 1s steps(11),
 		text_cursor_03 1s 2.2s ease-in-out forwards,
 		text_cursor_04 0s 4.5s forwards
 }
@@ -63,7 +63,22 @@ body {
 
 /* cursor blinking */
 @keyframes text_cursor_01 {
-	50% { @apply bg-transparent }
+	0% {
+		@apply bg-transparent
+	}
+	10% {
+		@apply bg-text
+	}
+	50% {
+		@apply bg-text
+	}
+	60% {
+		@apply bg-transparent
+	}
+	100% {
+		@apply bg-transparent
+	}
+	/* 50% { @apply bg-transparent } */
 }
 
 @keyframes text_cursor_02 {
