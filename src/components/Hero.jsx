@@ -7,14 +7,14 @@ import ArrowDown from "@/assets/svg/chevron-down-outline.svg"
 
 export default function Hero() {
     const { scrollY } = useScroll()
-    const height = useTransform(scrollY, [0, 500], ["100vh", "50vh"])
-    const x = useTransform(scrollY, [0, 500], ["0vw", "10vw"])
-    const opacity = useTransform(scrollY, [0, 250, 500], [1, 0.25, 0])
+    const y = useTransform(scrollY, [0, 1000], ["0vw", "20vh"])
+    const scale = useTransform(scrollY, [0, 1000], [1, 0.5])
+    const opacity = useTransform(scrollY, [0, 500], [1, 0])
 
     return (
         <motion.section 
-            className='select-none relative'
-            style={{ height }}
+            className='select-none relative h-screen'
+            style={{ y, scale }}
         >
             <div className='absolute_center'>
                 <motion.div className='hero_text'>

@@ -29,7 +29,6 @@ export default function Snippit(props) {
     }, [copy])
 
     return (
-        // <div className="bg-background-dark shadow-lg rounded-md overflow-hidden border-2 border-primary-button/50">
         <div className="bg-background-dark shadow-lg rounded-md overflow-hidden">
             <div className="flex flex-row p-3 justify-between items-center max-h-8 select-none">
                 <div className='flex flex-row gap-1'>
@@ -48,7 +47,6 @@ export default function Snippit(props) {
                 />
             </div>
             <div className='mx-1 shadow-md rounded-lg overflow-hidden'>
-            {/* <div className='overflow-hidden'> */}
                 <SyntaxHighlighter 
                     language={props.language}
                     style={gradientDark}
