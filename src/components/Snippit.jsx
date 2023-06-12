@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
+import Prism from 'prismjs'
 import Image from 'next/image';
 
 import HeartOutline from "@/assets/svg/heart-outline.svg"
@@ -27,6 +28,10 @@ export default function Snippit(props) {
             setCopy("")
         }, 3000);
     }, [copy])
+
+    useEffect(() => {
+        Prism.highlightAll()
+    }, [])
 
     return (
         <div className="bg-background-dark shadow-lg rounded-md overflow-hidden">

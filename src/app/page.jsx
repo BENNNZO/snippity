@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Hero from "@/components/Hero"
 import SnippitLoader from '@/components/SnippitLoader';
 import SearchBar from '@/components/SearchBar';
+import HeroBG from '@/components/HeroBG';
 
 export default function Home() {
     const [search, setSearch] = useState("")
@@ -111,6 +112,7 @@ export default function Snippit(props) {
 	return (
 		<main>
 			<Hero />
+            <HeroBG />
             {/* <p>{search}</p> */}
             <SearchBar onChange={setSearch} setSize={setSize} size={size % 3 + 1} />
             <SnippitLoader size={size % 3 + 1} snippits={snippits} />
