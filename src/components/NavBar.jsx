@@ -9,7 +9,7 @@ export default function NevBar() {
     const { scrollY } = useScroll()
     const blur = useTransform(scrollY, [0, 500], ["blur(0px)", "blur(5px)"])
     const width = useTransform(scrollY, [0, 1000], ["0%", "100%"])
-    const opacity = useTransform(scrollY, [0, 1000], ["0%", "100%"])
+    const opacity = useTransform(scrollY, [100, 500], ["0%", "100%"])
 
     const { data: session } = useSession()
 
@@ -25,23 +25,36 @@ export default function NevBar() {
             </div>
             <div className='flex flex-row gap-5 cursor-pointer'>
                 {session ? (
-                    <div>
-                        <Image
-                            src={session.user.image}
-                            width={30}
-                            height={30}
-                            alt='profile picture'
-                            className='shadow-lg rounded-full'
-                        />
+                    <div className='flex flex-row gap-5'>
                         <button 
                             onClick={() => signOut()}
-                            className='px-3 py-1 backdrop-blur-md border border-secondary-button/10'
+                            className='px-3 py-1 backdrop-blur-md bg-primary-button border border-secondary-button/10 rounded-sm text-text'
+                        >
+                            CREATE SNIPPIT
+                        </button>
+                        <button 
+                            onClick={() => signOut()}
+                            className='px-3 py-1 backdrop-blur-md bg-primary-button/40 border border-secondary-button/10 rounded-sm text-text'
                         >
                             SIGN OUT
                         </button>
+                        <div className='grid place-items-center'>
+                            <Image
+                                src={session.user.image}
+                                width={28}
+                                height={28}
+                                alt='profile picture'
+                                className='shadow-lg rounded-full'
+                            />
+                        </div>
                     </div>
                     ) : (
-                    <button onClick={() => signIn()}>SIGN IN</button>
+                    <button 
+                        onClick={() => signIn()}
+                        className='px-3 py-1 backdrop-blur-md bg-primary-button/40 border border-secondary-button/10 rounded-sm text-text'
+                    >
+                        SIGN IN
+                    </button>
                 )}
             </div>
             <motion.span 

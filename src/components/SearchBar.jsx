@@ -17,7 +17,7 @@ export default function SearchBar(props) {
     }, [search])
 
     return (
-        <div className='p-5 sticky top-0 flex flex-row justify-center items-center z-30 gap-5'>
+        <div className='p-5 h-[74px] sticky top-0 flex flex-row justify-center items-center z-30 gap-5'>
             <div className='w-1/2 flex flex-row bg-primary-button/40 px-3 backdrop-blur-md rounded-full border border-secondary-button/10'>
                 <input 
                     type="text" 
