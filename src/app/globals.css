@@ -46,6 +46,10 @@ body {
 		text_typing_03 0s 4.5s forwards
 }
 
+.no-ligs {
+	font-variant-ligatures: none;
+}
+
 .text_cursor {
 	@apply h-[80%] w-4 bg-text absolute top-0 rounded-sm left-[102%];
 	animation:

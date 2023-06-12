@@ -11,7 +11,7 @@ export default function HeroBG() {
     const xPos = useSpring(useTransform(scrollY, [0, 1000], [0, 100]), { stiffness: 100, damping: 30, restDelta: 0.001 })
     const xNeg = useSpring(useTransform(scrollY, [0, 1000], [0, -100]), { stiffness: 100, damping: 30, restDelta: 0.001 })
 
-    let amount = 150
+    let amount = 175
 
     const [windowDimentions, setWindowDimentions] = useState({ x: 0, y: 0 })
 
@@ -37,7 +37,8 @@ export default function HeroBG() {
                             <motion.span 
                                 key={`${i}-child`}
                                 initial={{ x: i % 2 === 0 ? -10 : 10, opacity: 0 }}
-                                animate={{ x: 0, opacity: 0.1 }}
+                                animate={{ x: 0, opacity: 0.2 }}
+                                // style={{ y: i % 2 === 0 ? xPos : xNeg }}
                                 className='w-1 h-1 rounded-full bg-white relative' 
                                 // initial={{ opacity: 0 }}
                                 // animate={{ opacity: 0.1 }}
