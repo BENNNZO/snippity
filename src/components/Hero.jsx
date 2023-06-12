@@ -4,19 +4,18 @@ import React from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import ArrowDown from "@/assets/svg/chevron-down-outline.svg"
-import Background from '@/assets/img/hero_background.png'
 
 export default function Hero() {
     const { scrollY } = useScroll()
-    const yTransform = useTransform(scrollY, [0, 1000], ["0vh", "20vh"])
-    const ySpring = useSpring(yTransform)
+    const y = useTransform(scrollY, [0, 1000], ["0vh", "20vh"])
+    // const yTransform = useSpring(useTransform(scrollY, [0, 1000], [0, 200]), { stiffness: 100, damping: 30, restDelta: 0.001 })
     const scale = useTransform(scrollY, [0, 1000], [1, 0.5])
     const opacity = useTransform(scrollY, [0, 500], [1, 0])
 
     return (
         <motion.section 
             className='select-none relative h-screen'
-            style={{ y: yTransform, scale }}
+            style={{ y, scale }}
         >
             {/* <Image
                 src={Background}
