@@ -3,9 +3,12 @@
 import React from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useSession, signIn, signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image';
 
 export default function NevBar() {
+    const { push } = useRouter()
+
     const { scrollY } = useScroll()
     const blur = useTransform(scrollY, [0, 500], ["blur(0px)", "blur(5px)"])
     const width = useTransform(scrollY, [0, 1000], ["0%", "100%"])
@@ -18,7 +21,7 @@ export default function NevBar() {
             className='fixed top-0 p-5 w-full z-20 flex flex-row justify-between items-center'
             style={{ backdropFilter: blur }}
         >
-            <div className='flex flex-row no-ligs text-xl'>
+            <div className='flex flex-row no-ligs text-xl cursor-pointer' onClick={() => push('/')}>
                 <p className='text-red-400 font-bold'>{`<`}</p>
                 <p className='text-yellow-300'>{`Snippity`}</p>
                 <p className='text-red-400 font-bold'>{`/>`}</p>
@@ -27,10 +30,11 @@ export default function NevBar() {
                 {session ? (
                     <div className='flex flex-row gap-5'>
                         <button 
-                            onClick={() => signOut()}
-                            className='px-3 py-1 backdrop-blur-md bg-primary-button border border-secondary-button/10 rounded-sm text-text'
+                            onClick={() => push('/create-snippit')}
+                            className='flex flex-row gap-2 px-3 py-1 backdrop-blur-md bg-primary-button border border-secondary-button/10 rounded-sm text-text'
                         >
-                            CREATE SNIPPIT
+                            <p className='text-purple-400 italic'>new</p>
+                            <p className='text-red-400 font-bold'>Snippit</p>
                         </button>
                         <button 
                             onClick={() => signOut()}

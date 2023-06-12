@@ -36,7 +36,7 @@ export default function HeroBG() {
                         {[...Array(Math.round(windowDimentions.x / amount))].map((e, i) => (
                             <motion.span 
                                 key={`${i}-child`}
-                                initial={{ x: i % 2 === 0 ? -10 : 10, opacity: 0 }}
+                                initial={{ x: i % 2 === 0 ? -50 : 50, opacity: 0 }}
                                 animate={{ x: 0, opacity: 0.2 }}
                                 // style={{ y: i % 2 === 0 ? xPos : xNeg }}
                                 className='w-1 h-1 rounded-full bg-white relative' 
