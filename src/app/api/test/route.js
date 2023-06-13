@@ -1,8 +1,8 @@
-import { ConnectDB } from "@/utils/database";
+import dbConnect from "@/utils/dbConnect";
 
 export async function GET() {
     try {
-        await ConnectDB()
+        await dbConnect()
 
         console.log("success")
 

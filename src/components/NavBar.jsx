@@ -18,7 +18,7 @@ export default function NevBar() {
 
     return (
         <motion.nav 
-            className='fixed top-0 p-5 w-full z-20 flex flex-row justify-between items-center'
+            className='fixed top-0 p-5 w-full z-20 flex flex-row justify-between items-center bg-background/70'
             style={{ backdropFilter: blur }}
         >
             <div className='flex flex-row no-ligs text-xl cursor-pointer' onClick={() => push('/')}>
