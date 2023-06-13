@@ -2,19 +2,32 @@ import dbConnect from "@/utils/dbConnect";
 import SnippitSchema from "@/models/SnippitSchema";
 
 export async function GET() {
-    
-}
-
-export async function POST() {
     try {
         await dbConnect()
+
+        const snippits = await SnippitSchema.find({})
+
+        return new Response(JSON.stringify(snippits), { status: 200 })
+    } catch (err) {
+        console.log(err)
+        return new Response(err, { status: 500 })
+    }
+}
+
+export async function POST(req) {
+    try {
+        await dbConnect()
+
+        const { title, code, tags, language } = await req.json()
+        
         await SnippitSchema.create({
-            title: "title 01",
-            code: "let snippity = 'the home of copy and paste'",
-            votes: 43,
-            language: "js",
-            tags: ["snippity", "copy", "paste"]
+            title,
+            code,
+            tags,
+            language,
+            votes: 0
         })
+        
         return new Response("snippit created", { status: 200 })
     } catch (err) {
         console.log(err)

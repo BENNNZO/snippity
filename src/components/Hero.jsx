@@ -55,7 +55,7 @@ export default function Hero() {
                     transition={{ delay: 1 }}
                     className='text-text/50 text-center mt-5 text-xl'
                 >
-                    let Snippity = "The home of copy & paste."
+                    let Snippity = "The home of copy & paste.";
                 </motion.p>
             </div>
             <motion.div

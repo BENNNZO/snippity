@@ -29,10 +29,6 @@ export default function Snippit(props) {
         }, 3000);
     }, [copy])
 
-    useEffect(() => {
-        Prism.highlightAll()
-    }, [])
-
     return (
         <div className="bg-background-dark shadow-lg rounded-md overflow-hidden">
             <div className="flex flex-row p-3 justify-between items-center max-h-8 select-none">
