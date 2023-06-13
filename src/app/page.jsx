@@ -11,7 +11,7 @@ import Loader from "@/assets/svg/loader2.svg"
 
 export default function Home() {
     const [search, setSearch] = useState("")
-    const [size, setSize] = useState(1) //   0 === large   /   1 === medium   /   2 === small
+    const [size, setSize] = useState(3) //   1 === large   /   2 === medium   /   3 === small
     const [snippits, setSnippits] = useState()
 
     useEffect(() => {
@@ -39,8 +39,9 @@ export default function Home() {
             <main>
                 <Hero />
                 <HeroBG />
-                <SearchBar onChange={setSearch} setSize={setSize} size={size % 3 + 1} />
-                <SnippitLoader size={(size % 3) + 1} snippits={snippits} />
+                <SearchBar onChange={setSearch} setSize={setSize} size={size} />
+                <p>{size}</p>
+                <SnippitLoader size={size} snippits={snippits} />
             </main>
         )
     }
