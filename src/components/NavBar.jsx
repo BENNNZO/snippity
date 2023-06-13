@@ -34,10 +34,7 @@ export default function NevBar() {
                             className='flex flex-row gap-2 px-3 py-1 backdrop-blur-md bg-primary-button border border-secondary-button/10 rounded-sm text-text'
                         >
                             <p className='text-purple-400 italic'>new</p>
-                            <div className='flex flex-row'>
-                                <p className='text-red-400 font-bold'>Snippit</p>
-                                <p className='text-white'>;</p>
-                            </div>
+                            <p className='text-red-400 font-bold'>Snippit</p>
                         </button>
                         <button 
                             onClick={() => signOut()}
