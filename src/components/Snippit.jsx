@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
+import { useSession } from 'next-auth/react';
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import Prism from 'prismjs'
 import Image from 'next/image';
 
 import HeartOutline from "@/assets/svg/heart-outline.svg"
@@ -12,14 +12,13 @@ import ArrowUp from "@/assets/svg/caret-up-outline.svg"
 import ArrowDown from "@/assets/svg/caret-down-outline.svg"
 import CopyIcon from "@/assets/svg/copy-outline.svg"
 import Checkmark from "@/assets/svg/checkmark-outline.svg"
+import Trash from "@/assets/svg/trash.svg"
 
-// styles
-import { darcula } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-import { nord } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import { gradientDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-import { nightOwl } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export default function Snippit(props) {
+    const { data: session } = useSession()
+
     const [copy, setCopy] = useState('')
 
     useEffect(() => {

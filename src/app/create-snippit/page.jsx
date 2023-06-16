@@ -3,8 +3,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
 export default function page() {
+    const { data: session } = useSession()
     const { push } = useRouter()
 
     const titleRef = useRef()
@@ -15,7 +17,11 @@ export default function page() {
 
     function handleSubmit(e) {
         e.preventDefault()
+        console.log("-------------------------------")
+        console.log(session?.user.id)
+        console.log("-------------------------------")
         axios.post('/api/snippit', {
+            creator: session?.user.id,
             title: titleRef.current.value,
             code: codeRef.current.value,
             language: languageRef.current.value,
@@ -36,7 +42,6 @@ export default function page() {
 
     return (
         <div className='grid place-items-center p-20'>
-            {/* <SnippitForm /> */}
             <form onSubmit={e => handleSubmit(e)} className='flex flex-col gap-5'>
                 <input ref={titleRef} type="text" placeholder='Title'/>
                 <textarea ref={codeRef} cols="30" rows="10"/>

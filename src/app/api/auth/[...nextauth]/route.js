@@ -32,7 +32,7 @@ const handler = NextAuth({
             try {
                 await dbConnect()
 
-                const sessionUser = await User.findOne({ Email: session.user.email })
+                const sessionUser = await User.findOne({ email: session.user.email })
 
                 session.user.id = sessionUser._id
 
@@ -50,7 +50,7 @@ const handler = NextAuth({
 
                 const userExists = await User.findOne({ Email: profile.email })
 
-                if (!userExists) await User.create({ Username: profile.name, Email: profile.email, ProfileImage: profile.picture })
+                if (!userExists) await User.create({ username: profile.name, email: profile.email, picture: profile.picture })
 
                 return true
             } catch (err) {
@@ -59,24 +59,6 @@ const handler = NextAuth({
             }
         }
     }
-    // events: {
-    //     signIn: async ({ user }) => {
-    //         console.log("118222427277813091957")
-    //         console.log(user.id)
-    //         try {
-    //             await dbConnect()
-
-    //             const userExists = await User.findOne({ Session: user.id })
-
-    //             console.log(userExists)
-
-    //             if (!userExists) await User.create({ Session: String(user.id), Username: user.name, Email: user.email, ProfileImage: user.image })
-    //         } catch (err) {
-    //             console.log("failed to connect to db")
-    //             console.log(err)
-    //         }
-    //     }
-    // }
 })
 
 export { handler as GET, handler as POST }
