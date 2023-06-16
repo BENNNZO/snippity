@@ -14,12 +14,8 @@ export default function page() {
     const languageRef = useRef()
     const tagsRef = useRef()
 
-
     function handleSubmit(e) {
         e.preventDefault()
-        console.log("-------------------------------")
-        console.log(session?.user.id)
-        console.log("-------------------------------")
         axios.post('/api/snippit', {
             creator: session?.user.id,
             title: titleRef.current.value,

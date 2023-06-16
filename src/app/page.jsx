@@ -41,7 +41,10 @@ export default function Home() {
                 <HeroBG />
                 <SearchBar onChange={setSearch} setSize={setSize} size={size} />
                 <p>{size}</p>
-                <SnippitLoader size={size} snippits={snippits} />
+                <SnippitLoader size={size} snippits={snippits} setSnippits={setSnippits} />
+                <pre className='text-white font-bold text-xl'>
+                    {JSON.stringify(snippits, null, 4)}
+                </pre>
             </main>
         )
     }

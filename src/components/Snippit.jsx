@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { useSession } from 'next-auth/react';
+import axios from 'axios';
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import Image from 'next/image';
 
@@ -28,6 +29,15 @@ export default function Snippit(props) {
         }, 3000);
     }, [copy])
 
+    function handleDelete() {
+        console.log(props.id)
+        axios.delete(`/api/snippit/${props.id}`)
+            .then(res => {
+                if (res.status === 200) props.setSnippits(prev => prev.filter(snippit => snippit._id !== props.id))
+            })
+            .catch(err => console.log(err))
+    }
+
     return (
         <div className="bg-background-dark shadow-lg rounded-md overflow-hidden">
             <div className="flex flex-row p-3 justify-between items-center max-h-8 select-none">
@@ -37,14 +47,26 @@ export default function Snippit(props) {
                     <span className="w-3 h-3 rounded-full bg-green-500"/>
                 </div>
                 <p className='text-text'>{props.title}</p>
-                <Image 
-                    src={props.code === copy ? Checkmark : CopyIcon}
-                    width={18}
-                    height={18}
-                    alt='copy'
-                    className='cursor-pointer'
-                    onClick={() => setCopy(props.code)}
-                />
+                <div className='flex flex-row gap-3'>
+                    <Image 
+                        src={props.code === copy ? Checkmark : CopyIcon}
+                        width={18}
+                        height={18}
+                        alt='copy'
+                        className='cursor-pointer'
+                        onClick={() => setCopy(props.code)}
+                    />
+                    {session?.user.id === props.creator ? (
+                        <Image 
+                            src={Trash}
+                            width={18}
+                            height={18}
+                            alt='trash / delete'
+                            className='cursor-pointer invret'
+                            onClick={() => handleDelete()}
+                        />
+                    ) : null}
+                </div>
             </div>
             <div className='mx-1 shadow-md rounded-lg overflow-hidden'>
                 <SyntaxHighlighter 
@@ -61,7 +83,7 @@ export default function Snippit(props) {
             <div className='flex flex-row-reverse justify-between'>
                 <div className='text-text/50 flex flex-row gap-3 px-3 py-1 cursor-pointer'>
                     {props.tags.map(e => (
-                        <p className='hover:underline'>#{e}</p>
+                        <p key={e} className='hover:underline'>#{e}</p>
                     ))}
                 </div>
                 <div className='px-3 py-1 flex flex-row gap-5 select-none'>

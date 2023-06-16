@@ -35,18 +35,3 @@ export async function POST(req) {
         return Response(err, { status: 500 })
     }
 }
-
-export async function DELETE(req) {
-    try {
-        await dbConnect()
-
-        const { id } = await req.json()
-
-        await Snippit.deleteOne({ _id: id })
-
-        return new Response("snippit deleted", { status: 200 })
-    } catch (err) {
-        console.log(err)
-        return new Response(err, { status: 500 })
-    }
-}
