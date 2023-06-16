@@ -1,14 +1,16 @@
 "use client"
 
 import React, { useState, useRef, useEffect } from 'react';
-import SnippitForm from '@/components/SnippitForm';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export default function page() {
-    const titleRef    = useRef()
-    const codeRef     = useRef()
+    const { push } = useRouter()
+
+    const titleRef = useRef()
+    const codeRef = useRef()
     const languageRef = useRef()
-    const tagsRef     = useRef()
+    const tagsRef = useRef()
 
 
     function handleSubmit(e) {
@@ -19,7 +21,9 @@ export default function page() {
             language: languageRef.current.value,
             tags: tagsRef.current.value.split(',').map(e => e.trim())
         })
-        .then(res => console.log(res))
+        .then(res => {
+            if (res.status === 200) push('/')
+        })
         .catch(err => console.log(err))
     }
 

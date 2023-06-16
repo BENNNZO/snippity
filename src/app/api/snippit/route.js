@@ -1,11 +1,11 @@
 import dbConnect from "@/utils/dbConnect";
-import SnippitSchema from "@/models/SnippitSchema";
+import Snippit from "@/models/Snippit";
 
 export async function GET() {
     try {
         await dbConnect()
 
-        const snippits = await SnippitSchema.find({})
+        const snippits = await Snippit.find({})
 
         return new Response(JSON.stringify(snippits), { status: 200 })
     } catch (err) {
