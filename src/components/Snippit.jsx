@@ -38,16 +38,21 @@ export default function Snippit(props) {
             .catch(err => console.log(err))
     }
 
+    const varients = {
+        initial: { opacity: 0, x: -100 },
+        inView: { opacity: 1, x: 0 }
+    }
+
     return (
         <div className="bg-background-dark shadow-lg rounded-md overflow-hidden">
             <div className="flex flex-row p-3 justify-between items-center max-h-8 select-none">
                 <div className='flex flex-row gap-1'>
-                    <span className="w-3 h-3 rounded-full bg-red-500"/>
-                    <span className="w-3 h-3 rounded-full bg-yellow-300"/>
-                    <span className="w-3 h-3 rounded-full bg-green-500"/>
+                    <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="w-3 h-3 rounded-full bg-red-500"/>
+                    <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="w-3 h-3 rounded-full bg-yellow-300"/>
+                    <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }} className="w-3 h-3 rounded-full bg-green-500"/>
                 </div>
-                <p className='text-text'>{props.title}</p>
-                <div className='flex flex-row gap-3'>
+                <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>{props.title}</motion.p>
+                <motion.div className='flex flex-row gap-3' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
                     <Image 
                         src={props.code === copy ? Checkmark : CopyIcon}
                         width={18}
@@ -66,7 +71,7 @@ export default function Snippit(props) {
                             onClick={() => handleDelete()}
                         />
                     ) : null}
-                </div>
+                </motion.div>
             </div>
             <div className='mx-1 shadow-md rounded-lg overflow-hidden'>
                 <SyntaxHighlighter 
@@ -82,37 +87,43 @@ export default function Snippit(props) {
             </div>
             <div className='flex flex-row-reverse justify-between'>
                 <div className='text-text/50 flex flex-row gap-3 px-3 py-1 cursor-pointer'>
-                    {props.tags.map(e => (
-                        <p key={e} className='hover:underline'>#{e}</p>
+                    {props.tags.map((e, i) => (
+                        <motion.p key={i} className='hover:underline' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.2 + 0.2 }}>#{e}</motion.p>
                     ))}
                 </div>
                 <div className='px-3 py-1 flex flex-row gap-5 select-none'>
                     <div className='flex flex-row gap-2'>
-                        <Image 
-                            src={ArrowUp}
-                            width={20}
-                            height={20}
-                            alt='up vote'
-                            className='cursor-pointer'
-                        />
-                        <p className='text-text'>
+                        <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                            <Image 
+                                src={ArrowUp}
+                                width={20}
+                                height={20}
+                                alt='up vote'
+                                className='cursor-pointer'
+                            />
+                        </motion.div>
+                        <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
                             {props.votes}
-                        </p>
+                        </motion.p>
+                        <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>
+                            <Image
+                                src={ArrowDown}
+                                width={20}
+                                height={20}
+                                alt='down vote'
+                                className='cursor-pointer'
+                            />
+                        </motion.div>
+                    </div>
+                    <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }}>
                         <Image 
-                            src={ArrowDown}
+                            src={props.favorite ? HeartFilled : HeartOutline}
                             width={20}
                             height={20}
-                            alt='down vote'
+                            alt='favorite'
                             className='cursor-pointer'
                         />
-                    </div>
-                    <Image 
-                        src={props.favorite ? HeartFilled : HeartOutline}
-                        width={20}
-                        height={20}
-                        alt='favorite'
-                        className='cursor-pointer'
-                    />
+                    </motion.div>
                 </div>
             </div>
         </div>

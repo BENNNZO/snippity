@@ -13,15 +13,24 @@ export default function Home() {
     const [search, setSearch] = useState("")
     const [size, setSize] = useState(3) //   1 === large   /   2 === medium   /   3 === small
     const [snippits, setSnippits] = useState()
+    const [page, setPage] = useState(0)
+
+    // useEffect(() => {
+    //     axios.get(`/api/snippit/get-page/${page}`)
+    //         .then(req => {
+    //             console.log(req.data)
+    //             setSnippits(req.data)
+    //         })
+    //         .catch(err => console.log(err))
+    // }, [])
 
     useEffect(() => {
-        axios.get('/api/snippit')
-            .then(req => {
-                console.log(req.data)
-                setSnippits(req.data)
+        axios.get(`/api/snippit/get-page/${page}`)
+            .then(res => {
+                page === 0 ? setSnippits(res.data) : setSnippits(prev => prev.concat(res.data))
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [page])
 
     if (!snippits) {
         return (
@@ -42,9 +51,9 @@ export default function Home() {
                 <SearchBar onChange={setSearch} setSize={setSize} size={size} />
                 <p>{size}</p>
                 <SnippitLoader size={size} snippits={snippits} setSnippits={setSnippits} />
-                <pre className='text-white font-bold text-xl'>
-                    {JSON.stringify(snippits, null, 4)}
-                </pre>
+                <button onClick={() => setPage(prev => prev + 1)} className='text-white text-3xl'>
+                    LOAD MORE
+                </button>
             </main>
         )
     }
