@@ -29,6 +29,10 @@
 	background: #131822
 }
 
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	font-family: 'Cascadia Code', sans-serif;
 }

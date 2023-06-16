@@ -5,12 +5,8 @@ export async function GET(req, { params }) {
     try {
         await dbConnect()
 
-        // console.log(req)
-        // console.log('req.url.searchParams.page')
-        // console.log(page)
-        // console.log('req.url.searchParams.page')
         console.log(params)
-        const snippits = await Snippit.find(params.info.length !== 2 ? {} : { code: new RegExp(params.info[1], "i") }).skip(params.info[0] * 3).limit(3)
+        const snippits = await Snippit.find(params.info.length !== 3 ? {} : params.info[2] === "true" ? { tags: new RegExp(params.info[1], "i") } : { code: new RegExp(params.info[1], "i") }).sort('dateCreated').skip(params.info[0] * 6).limit(6)
 
         return new Response(JSON.stringify(snippits), { status: 200 })
     } catch (err) {

@@ -44,7 +44,12 @@ export default function Snippit(props) {
     }
 
     return (
-        <div className="bg-background-dark shadow-lg rounded-md overflow-hidden">
+        <motion.div 
+            className="bg-background-dark shadow-lg rounded-md overflow-hidden"
+            initial={{ opacity: 0, y: 25, scale: 0.5 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.1 }}
+        >
             <div className="flex flex-row p-3 justify-between items-center max-h-8 select-none">
                 <div className='flex flex-row gap-1'>
                     <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="w-3 h-3 rounded-full bg-red-500"/>
@@ -126,6 +131,6 @@ export default function Snippit(props) {
                     </motion.div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
