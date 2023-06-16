@@ -15,22 +15,20 @@ export default function Home() {
     const [snippits, setSnippits] = useState()
     const [page, setPage] = useState(0)
 
-    // useEffect(() => {
-    //     axios.get(`/api/snippit/get-page/${page}`)
-    //         .then(req => {
-    //             console.log(req.data)
-    //             setSnippits(req.data)
-    //         })
-    //         .catch(err => console.log(err))
-    // }, [])
-
     useEffect(() => {
-        axios.get(`/api/snippit/get-page/${page}`)
+        axios.get(`/api/snippit/query/${page}/${search}`)
             .then(res => {
                 page === 0 ? setSnippits(res.data) : setSnippits(prev => prev.concat(res.data))
             })
             .catch(err => console.log(err))
     }, [page])
+
+    useEffect(() => {
+        setPage(0)
+        axios.get(`/api/snippit/query/${page}/${search}`)
+            .then(res => setSnippits(res.data))
+            .catch(err => console.log(err))
+    }, [search])
 
     if (!snippits) {
         return (
@@ -48,12 +46,21 @@ export default function Home() {
             <main>
                 <Hero />
                 <HeroBG />
-                <SearchBar onChange={setSearch} setSize={setSize} size={size} />
-                <p>{size}</p>
+                <SearchBar value={search} onChange={setSearch} setSize={setSize} size={size} />
                 <SnippitLoader size={size} snippits={snippits} setSnippits={setSnippits} />
-                <button onClick={() => setPage(prev => prev + 1)} className='text-white text-3xl'>
-                    LOAD MORE
-                </button>
+                {search !== "" && snippits.length === 0 ? (
+                    <div className='grid place-items-center'>
+                        {/* <div className='text-red-300 rounded-sm text-center mb-20 text-xl px-5 py-2 bg-primary-button/40 border border-secondary-button/10 inline-block'> */}
+                        <div className='text-red-300 rounded-sm text-center mb-20 text-xl px-5 py-2 bg-red-900/20 border border-red-200/10 inline-block'>
+                            Your search <strong className='text-text'>"{search}"</strong> did not match any snippits.
+                        </div>
+                    </div>
+                ) : ''}
+                <div className='grid place-items-center mb-20'>
+                    <button onClick={() => setPage(prev => prev + 1)} className='text-text text-lg rounded-sm bg-primary-button/40 backdrop-blur-md border border-secondary-button/10 px-5 py-2'>
+                        LOAD MORE
+                    </button>
+                </div>
             </main>
         )
     }
