@@ -27,24 +27,56 @@ const handler = NextAuth({
     pages: {
         signIn: '/auth/signIn'
     },
-    events: {
-        signIn: async ({ user }) => {
-            console.log("118222427277813091957")
-            console.log(user.id)
+    callbacks: {
+        session: async ({ session }) => {
             try {
                 await dbConnect()
 
-                const userExists = await User.findOne({ Session: user.id })
+                const sessionUser = await User.findOne({ Email: session.user.email })
 
-                console.log(userExists)
+                session.user.id = sessionUser._id
 
-                if (!userExists) await User.create({ Session: String(user.id), Username: user.name, Email: user.email, ProfileImage: user.image })
+                return session
             } catch (err) {
-                console.log("failed to connect to db")
                 console.log(err)
+
+                return session
+            }
+        },
+        signIn: async ({ profile }) => {
+            console.log(profile)
+            try {
+                await dbConnect()
+
+                const userExists = await User.findOne({ Email: profile.email })
+
+                if (!userExists) await User.create({ Username: profile.name, Email: profile.email, ProfileImage: profile.picture })
+
+                return true
+            } catch (err) {
+                console.log(err)
+                return false
             }
         }
     }
+    // events: {
+    //     signIn: async ({ user }) => {
+    //         console.log("118222427277813091957")
+    //         console.log(user.id)
+    //         try {
+    //             await dbConnect()
+
+    //             const userExists = await User.findOne({ Session: user.id })
+
+    //             console.log(userExists)
+
+    //             if (!userExists) await User.create({ Session: String(user.id), Username: user.name, Email: user.email, ProfileImage: user.image })
+    //         } catch (err) {
+    //             console.log("failed to connect to db")
+    //             console.log(err)
+    //         }
+    //     }
+    // }
 })
 
 export { handler as GET, handler as POST }
