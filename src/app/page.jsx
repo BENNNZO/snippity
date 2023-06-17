@@ -26,7 +26,10 @@ export default function Home() {
     useEffect(() => {
         setPage(0)
         axios.get(`/api/snippit/query/${page}/${search.startsWith("#") ? search.slice(1) : search}/${search.startsWith("#")}`)
-            .then(res => setSnippits(res.data))
+            .then(res => {
+                console.log(res.data)
+                setSnippits(res.data)
+            })
             .catch(err => console.log(err))
     }, [search])
 

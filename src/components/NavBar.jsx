@@ -8,13 +8,12 @@ import Image from 'next/image';
 
 export default function NevBar() {
     const { push } = useRouter()
+    const { data: session } = useSession()
 
     const { scrollY } = useScroll()
     const blur = useTransform(scrollY, [0, 500], ["blur(0px)", "blur(5px)"])
     const width = useTransform(scrollY, [0, 1000], ["0%", "100%"])
     const opacity = useTransform(scrollY, [100, 500], ["0%", "100%"])
-
-    const { data: session } = useSession()
 
     return (
         <motion.nav 
@@ -31,7 +30,7 @@ export default function NevBar() {
                     <div className='flex flex-row gap-5'>
                         <button 
                             onClick={() => push('/create-snippit')}
-                            className='flex flex-row gap-2 px-3 py-1 backdrop-blur-md bg-primary-button border border-secondary-button/10 rounded-sm text-text'
+                            className='flex flex-row gap-2 z-40 relative px-3 py-1 backdrop-blur-md bg-primary-button border border-secondary-button/10 rounded-sm text-text'
                         >
                             <p className='text-purple-400 italic'>new</p>
                             <p className='text-red-400 font-bold'>Snippit</p>
@@ -42,7 +41,7 @@ export default function NevBar() {
                         >
                             SIGN OUT
                         </button>
-                        <div className='grid place-items-center'>
+                        <div className='grid place-items-center' onClick={() => push(`/profile?profile=${session?.user.id}`)}>
                             <Image
                                 src={session.user.image}
                                 width={28}

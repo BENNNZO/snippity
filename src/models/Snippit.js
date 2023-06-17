@@ -1,10 +1,13 @@
 import { model, models, Schema } from "mongoose";
 
 const SnippitSchema = new Schema({
-    creator: Schema.Types.ObjectId,
-    dateCreated: {
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    date: {
         type: Date,
-        default: new Date()
+        default: Date.now
     },
     title: String,
     code: String,

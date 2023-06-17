@@ -12,8 +12,8 @@ import Large from "@/assets/svg/large.svg"
 export default function SearchBar(props) {
 
     return (
-        <div className='p-5 h-[74px] sticky top-0 flex flex-row justify-center items-center z-30 gap-5'>
-            <div className='w-1/2 flex flex-row bg-primary-button/40 px-3 backdrop-blur-md rounded-full border border-secondary-button/10'>
+        <div className='p-5 mx-96 h-[74px] sticky top-0 z-30 flex flex-row justify-center items-center gap-5'>
+            <div className='w-full z-30 flex flex-row bg-primary-button/40 px-3 backdrop-blur-md rounded-full border border-secondary-button/10'>
                 <input 
                     type="text" 
                     className='bg-transparent w-full shadow-lg text-text h-7 focus:outline-none'
@@ -29,7 +29,7 @@ export default function SearchBar(props) {
                     className='invert rotate-90 opacity-70 cursor-pointer'
                 />
             </div>
-            <div className='flex flex-row cursor-pointer h-[30px] gap-1 w-14' onClick={() => props.setSize(prev => prev % 3 + 1)}>
+            <div className='flex z-30 flex-row cursor-pointer h-[30px] gap-1 w-14' onClick={() => props.setSize(prev => prev % 3 + 1)}>
                 {[...Array(props.size)].map((e, i) => (
                     <span key={i} className='w-full h-full bg-primary-button/40 backdrop-blur-md rounded-sm border-secondary-button/10 border' />
                 ))}

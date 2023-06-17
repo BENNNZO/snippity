@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { motion } from "framer-motion";
+import { motion, spring } from "framer-motion";
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
@@ -46,9 +46,9 @@ export default function Snippit(props) {
     return (
         <motion.div 
             className="bg-background-dark shadow-lg rounded-md overflow-hidden"
-            initial={{ opacity: 0, y: 25, scale: 0.5 }}
+            initial={{ opacity: 0, y: 25, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.1, type: "spring", stiffness: 150 }}
         >
             <div className="flex flex-row p-3 justify-between items-center max-h-8 select-none">
                 <div className='flex flex-row gap-1'>
@@ -56,7 +56,10 @@ export default function Snippit(props) {
                     <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="w-3 h-3 rounded-full bg-yellow-300"/>
                     <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }} className="w-3 h-3 rounded-full bg-green-500"/>
                 </div>
-                <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>{props.title}</motion.p>
+                <div className='flex flex-row gap-3 items-center'>
+                    <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>{props.title}</motion.p>
+                    <motion.p className='text-text/30 text-sm' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>@{props.creator.username.replace(" ", "")}</motion.p>
+                </div>
                 <motion.div className='flex flex-row gap-3' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
                     <Image 
                         src={props.code === copy ? Checkmark : CopyIcon}
@@ -66,7 +69,7 @@ export default function Snippit(props) {
                         className='cursor-pointer'
                         onClick={() => setCopy(props.code)}
                     />
-                    {session?.user.id === props.creator ? (
+                    {session?.user.id === props.creator._id ? (
                         <Image 
                             src={Trash}
                             width={18}
