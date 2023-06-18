@@ -19,28 +19,34 @@ import { gradientDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export default function Snippit(props) {
     const { data: session } = useSession()
+    const { _id, creator, code, votes, tags, language, title } = props.snippit 
 
     const [copy, setCopy] = useState('')
+    const [favorite, setFavorite] = useState(creator.favorites.includes(_id))
 
     useEffect(() => {
-        window.navigator.clipboard.writeText(props.code)
+        window.navigator.clipboard.writeText(code)
         setTimeout(() => {
             setCopy("")
         }, 3000);
     }, [copy])
 
     function handleDelete() {
-        console.log(props.id)
-        axios.delete(`/api/snippit/${props.id}`)
+        console.log("delete")
+        axios.delete(`/api/snippit/${_id}/${session?.user.id}`)
             .then(res => {
-                if (res.status === 200) props.setSnippits(prev => prev.filter(snippit => snippit._id !== props.id))
+                if (res.status === 200) props.setSnippits(prev => prev.filter(snippit => snippit._id !== _id))
             })
             .catch(err => console.log(err))
     }
 
-    const varients = {
-        initial: { opacity: 0, x: -100 },
-        inView: { opacity: 1, x: 0 }
+    function handleFavorite() {
+        console.log("favorite")
+        axios.post(`api/user/${session?.user.id}`, { snippitId: _id })
+            .then(res => {
+                if (res.status === 200) setFavorite(prev => !prev)
+            })
+            .catch(err => console.log(err))
     }
 
     return (
@@ -57,19 +63,19 @@ export default function Snippit(props) {
                     <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }} className="w-3 h-3 rounded-full bg-green-500"/>
                 </div>
                 <div className='flex flex-row gap-3 items-center'>
-                    <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>{props.title}</motion.p>
-                    <motion.p className='text-text/30 text-sm' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>@{props.creator.username.replace(" ", "")}</motion.p>
+                    <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>{title}</motion.p>
+                    <motion.p className='text-text/30 text-sm' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>@{creator.username.replace(" ", "")}</motion.p>
                 </div>
                 <motion.div className='flex flex-row gap-3' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
                     <Image 
-                        src={props.code === copy ? Checkmark : CopyIcon}
+                        src={code === copy ? Checkmark : CopyIcon}
                         width={18}
                         height={18}
                         alt='copy'
                         className='cursor-pointer'
-                        onClick={() => setCopy(props.code)}
+                        onClick={() => setCopy(code)}
                     />
-                    {session?.user.id === props.creator._id ? (
+                    {session?.user.id === creator._id ? (
                         <Image 
                             src={Trash}
                             width={18}
@@ -83,19 +89,19 @@ export default function Snippit(props) {
             </div>
             <div className='mx-1 shadow-md rounded-lg overflow-hidden'>
                 <SyntaxHighlighter 
-                    language={props.language}
+                    language={language}
                     style={gradientDark}
                     customStyle={{ background: "rgb(0, 0, 0, 0.5)" }}
                     className="h-[500px] bg-black/50"
                     lineNumberStyle={{ minWidth: "3em", paddingRight: "1.5em", fontStyle: "italic", opacity: 0.25 }}
                     showLineNumbers
                 >
-                    {props.code}
+                    {code}
                 </SyntaxHighlighter>
             </div>
             <div className='flex flex-row-reverse justify-between'>
                 <div className='text-text/50 flex flex-row gap-3 px-3 py-1 cursor-pointer'>
-                    {props.tags.map((e, i) => (
+                    {tags.map((e, i) => (
                         <motion.p key={i} className='hover:underline' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.2 + 0.2 }}>#{e}</motion.p>
                     ))}
                 </div>
@@ -111,7 +117,7 @@ export default function Snippit(props) {
                             />
                         </motion.div>
                         <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
-                            {props.votes}
+                            {votes}
                         </motion.p>
                         <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>
                             <Image
@@ -125,11 +131,12 @@ export default function Snippit(props) {
                     </div>
                     <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }}>
                         <Image 
-                            src={props.favorite ? HeartFilled : HeartOutline}
+                            src={favorite ? HeartFilled : HeartOutline}
                             width={20}
                             height={20}
                             alt='favorite'
                             className='cursor-pointer'
+                            onClick={() => handleFavorite()}
                         />
                     </motion.div>
                 </div>

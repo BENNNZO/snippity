@@ -1,5 +1,6 @@
 import dbConnect from "@/utils/dbConnect";
 import Snippit from "@/models/Snippit";
+import User from "@/models/User";
 
 export async function DELETE(req, { params }) {
     try {
@@ -7,7 +8,8 @@ export async function DELETE(req, { params }) {
 
         const { id } = await params
 
-        await Snippit.deleteOne({ _id: id })
+        await Snippit.deleteOne({ _id: id[0] })
+        await User.updateOne({ _id: id[1] }, { "$pull": { favorite: id[0] } })
 
         return new Response("snippit deleted", { status: 200 })
     } catch (err) {

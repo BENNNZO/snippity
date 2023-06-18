@@ -48,7 +48,7 @@ const handler = NextAuth({
             try {
                 await dbConnect()
 
-                const userExists = await User.findOne({ Email: profile.email })
+                const userExists = await User.findOne({ email: profile.email })
 
                 if (!userExists) await User.create({ username: profile.name, email: profile.email, picture: profile.picture })
 
