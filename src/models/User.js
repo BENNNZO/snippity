@@ -4,7 +4,10 @@ const UserSchema = new Schema({
     username: String,
     email: String,
     picture: String,
-    favorites: [Schema.Types.ObjectId],
+    favorites: [{
+        type: Schema.Types.ObjectId,
+        ref: "Snippit"
+    }],
     upvote: [Schema.Types.ObjectId],
     downvote: [Schema.Types.ObjectId]
 })
