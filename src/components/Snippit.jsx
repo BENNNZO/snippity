@@ -16,6 +16,7 @@ import ArrowDownFalse from "@/assets/svg/arrow-down-new-filled copy.svg"
 import CopyIcon from "@/assets/svg/copy-outline.svg"
 import Checkmark from "@/assets/svg/checkmark-outline.svg"
 import Trash from "@/assets/svg/trash.svg"
+import Loader from "@/assets/svg/loader2.svg"
 
 import { gradientDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
@@ -25,7 +26,11 @@ export default function Snippit(props) {
 
     const [copy, setCopy] = useState('')
     const [favorite, setFavorite] = useState(creator.favorites.includes(_id))
+    const [favoriteLoading, setFavoriteLoading] = useState(false)
     const [vote, setVote] = useState({ up: creator.upvote.includes(_id), down: creator.downvote.includes(_id) })
+    const [voteLoading, setVoteLoading] = useState(false)
+    const [clientVotes, setClientVotes] = useState(votes)
+    const controlVotes = creator.upvote.includes(_id) ? votes - 1 : creator.downvote.includes(_id) ? votes + 1 : votes
 
     useEffect(() => {
         window.navigator.clipboard.writeText(code)
@@ -44,44 +49,51 @@ export default function Snippit(props) {
     }
 
     function handleFavorite() {
+        setFavoriteLoading(true)
         console.log("favorite")
         axios.post(`api/user/favorite/${session?.user.id}`, { snippitId: _id })
             .then(res => {
-                if (res.status === 200) setFavorite(prev => !prev)
+                setTimeout(() => {
+                    if (res.status === 200) setFavorite(prev => !prev)
+                    setFavoriteLoading(false)
+                }, 100);
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setTimeout(() => {
+                    console.log(err)
+                    setFavoriteLoading(false)
+                }, 100);
+            })
     }
 
-    function handleVote(option, value) {
+    function handleVote(option, value, voteValues) { // i'm sorry :( this code is terrible especially on the server side
+        setVoteLoading(true)
         console.log("vote")
-        switch (option) {
-            case "up":
-                console.log("up vote!")
-                axios.post(`/api/user/vote/${session?.user.id}`, { option, value, _id })
-                    .then(res => {
-                        if (res.status === 200) {
-                            setVote({ up: value, down: !value })
-                        } 
-                    })
-                    .catch(err => console.log(err))
-                break
-
-            case "down":
-                console.log("down vote")
-                axios.post(`/api/user/vote/${session?.user.id}`, { option, value, _id })
-                    .then(res => {
-                        if (res.status === 200) {
-                            setVote({ up: !value, down: value })
+        let up = voteValues.up
+        let down = voteValues.down
+        axios.post(`/api/user/vote/${session?.user.id}`, { option, value, _id, up, down })
+            .then(res => {
+                setTimeout(() => {
+                    if (res.status === 200) {
+                        if (option === "up") {
+                            setVote({ up: value, down: false })
+                            console.log(controlVotes)
+                             setClientVotes(controlVotes + 1)
+                        } else {
+                            setVote({ up: false, down: value })
+                            setClientVotes(controlVotes - 1)
                         }
-                    })
-                    .catch(err => console.log(err))
-                break
-        }
-        // axios.post(`api/user/${session?.user.id}`, { snippitId: _id })
-        //     .then(res => {
-        //         if (res.status === 200) setFavorite(prev => !prev)
-        //     })
-        //     .catch(err => console.log(err))
+                        if (!value) setClientVotes(controlVotes) // if unvoting set votes back to original number
+                    }
+                    setVoteLoading(false)
+                }, 100);
+            })
+            .catch(err => {
+                setTimeout(() => {
+                    console.log(err)
+                    setVoteLoading(false)
+                }, 100);
+            })
     }
 
     return (
@@ -145,31 +157,52 @@ export default function Snippit(props) {
                         <div className='flex flex-row gap-2 items-center'>
                             <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
                                 <Image 
-                                    src={vote.up ? ArrowUpTrue : ArrowUpFalse}
+                                    src={voteLoading ? Loader : vote.up ? ArrowUpTrue : ArrowUpFalse}
                                     width={20}
                                     height={20}
                                     alt='up vote'
                                     className='cursor-pointer'
-                                    onClick={() => handleVote("up", !vote.up)}
+                                    onClick={() => handleVote("up", !vote.up, vote)}
                                 />
                             </motion.div>
                             <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
-                                {votes}
+                                {clientVotes}
                             </motion.p>
                             <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>
                                 <Image
-                                    src={vote.down ? ArrowDownTrue : ArrowDownFalse}
+                                    src={voteLoading ? Loader : vote.down ? ArrowDownTrue : ArrowDownFalse}
                                     width={20}
                                     height={20}
                                     alt='down vote'
                                     className='cursor-pointer'
-                                    onClick={() => handleVote("down", !vote.down)}
+                                    onClick={() => handleVote("down", !vote.down, vote)}
                                 />
                             </motion.div>
                         </div>
+                        {/* {favoriteLoading ? (
+                            <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className='grid place-items-center'>
+                                <Image 
+                                    src={Loader}
+                                    width={20}
+                                    height={20}
+                                    alt='Loader animation'
+                                />
+                            </motion.div>
+                        ) : (
+                            <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className='grid place-items-center'>
+                                <Image 
+                                    src={favorite ? HeartFilled : HeartOutline}
+                                    width={20}
+                                    height={20}
+                                    alt='favorite'
+                                    className='cursor-pointer'
+                                    onClick={() => handleFavorite()}
+                                />
+                            </motion.div>
+                        )} */}
                         <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className='grid place-items-center'>
                             <Image 
-                                src={favorite ? HeartFilled : HeartOutline}
+                                src={favoriteLoading ? Loader : favorite ? HeartFilled : HeartOutline}
                                 width={20}
                                 height={20}
                                 alt='favorite'
