@@ -156,50 +156,41 @@ export default function Snippit(props) {
                     <div className='px-3 py-1 flex flex-row gap-5 select-none'>
                         <div className='flex flex-row gap-2 items-center'>
                             <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
-                                <Image 
-                                    src={voteLoading ? Loader : vote.up ? ArrowUpTrue : ArrowUpFalse}
-                                    width={20}
-                                    height={20}
-                                    alt='up vote'
-                                    className='cursor-pointer'
-                                    onClick={() => handleVote("up", !vote.up, vote)}
-                                />
+                                <motion.div
+                                    animate={voteLoading ? { opacity: 0, rotate: -180 } : { opacity: 1, rotate: 0 }}
+                                >
+                                    <Image 
+                                        src={vote.up ? ArrowUpTrue : ArrowUpFalse}
+                                        width={20}
+                                        height={20}
+                                        alt='up vote'
+                                        className='cursor-pointer'
+                                        onClick={() => handleVote("up", !vote.up, vote)}
+                                    />
+                                </motion.div>
                             </motion.div>
                             <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
                                 {clientVotes}
                             </motion.p>
-                            <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>
-                                <Image
-                                    src={voteLoading ? Loader : vote.down ? ArrowDownTrue : ArrowDownFalse}
-                                    width={20}
-                                    height={20}
-                                    alt='down vote'
-                                    className='cursor-pointer'
-                                    onClick={() => handleVote("down", !vote.down, vote)}
-                                />
+                            <motion.div 
+                                initial={{ opacity: 0, x: -10 }} 
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.6 }}>
+                                <motion.div
+                                    animate={voteLoading ? { opacity: 0, rotate: 180 } : { opacity: 1, rotate: 0 }}
+                                >
+                                    <Image
+                                        // src={voteLoading ? Loader : vote.down ? ArrowDownTrue : ArrowDownFalse}
+                                        src={vote.down ? ArrowDownTrue : ArrowDownFalse}
+                                        width={20}
+                                        height={20}
+                                        alt='down vote'
+                                        className='cursor-pointer'
+                                        onClick={() => handleVote("down", !vote.down, vote)}
+                                    />
+                                </motion.div>
                             </motion.div>
                         </div>
-                        {/* {favoriteLoading ? (
-                            <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className='grid place-items-center'>
-                                <Image 
-                                    src={Loader}
-                                    width={20}
-                                    height={20}
-                                    alt='Loader animation'
-                                />
-                            </motion.div>
-                        ) : (
-                            <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className='grid place-items-center'>
-                                <Image 
-                                    src={favorite ? HeartFilled : HeartOutline}
-                                    width={20}
-                                    height={20}
-                                    alt='favorite'
-                                    className='cursor-pointer'
-                                    onClick={() => handleFavorite()}
-                                />
-                            </motion.div>
-                        )} */}
                         <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className='grid place-items-center'>
                             <Image 
                                 src={favoriteLoading ? Loader : favorite ? HeartFilled : HeartOutline}
