@@ -9,8 +9,10 @@ import Image from 'next/image';
 
 import HeartOutline from "@/assets/svg/heart-new.svg"
 import HeartFilled from "@/assets/svg/heart-new-filled.svg"
-import ArrowUp from "@/assets/svg/caret-up-outline.svg"
-import ArrowDown from "@/assets/svg/caret-down-outline.svg"
+import ArrowUpTrue from "@/assets/svg/arrow-up-new-filled.svg"
+import ArrowUpFalse from "@/assets/svg/arrow-up-new-filled copy.svg"
+import ArrowDownTrue from "@/assets/svg/arrow-down-new-filled.svg"
+import ArrowDownFalse from "@/assets/svg/arrow-down-new-filled copy.svg"
 import CopyIcon from "@/assets/svg/copy-outline.svg"
 import Checkmark from "@/assets/svg/checkmark-outline.svg"
 import Trash from "@/assets/svg/trash.svg"
@@ -23,6 +25,7 @@ export default function Snippit(props) {
 
     const [copy, setCopy] = useState('')
     const [favorite, setFavorite] = useState(creator.favorites.includes(_id))
+    const [vote, setVote] = useState({ up: creator.upvote.includes(_id), down: creator.downvote.includes(_id) })
 
     useEffect(() => {
         window.navigator.clipboard.writeText(code)
@@ -42,11 +45,43 @@ export default function Snippit(props) {
 
     function handleFavorite() {
         console.log("favorite")
-        axios.post(`api/user/${session?.user.id}`, { snippitId: _id })
+        axios.post(`api/user/favorite/${session?.user.id}`, { snippitId: _id })
             .then(res => {
                 if (res.status === 200) setFavorite(prev => !prev)
             })
             .catch(err => console.log(err))
+    }
+
+    function handleVote(option, value) {
+        console.log("vote")
+        switch (option) {
+            case "up":
+                console.log("up vote!")
+                axios.post(`/api/user/vote/${session?.user.id}`, { option, value, _id })
+                    .then(res => {
+                        if (res.status === 200) {
+                            setVote({ up: value, down: !value })
+                        } 
+                    })
+                    .catch(err => console.log(err))
+                break
+
+            case "down":
+                console.log("down vote")
+                axios.post(`/api/user/vote/${session?.user.id}`, { option, value, _id })
+                    .then(res => {
+                        if (res.status === 200) {
+                            setVote({ up: !value, down: value })
+                        }
+                    })
+                    .catch(err => console.log(err))
+                break
+        }
+        // axios.post(`api/user/${session?.user.id}`, { snippitId: _id })
+        //     .then(res => {
+        //         if (res.status === 200) setFavorite(prev => !prev)
+        //     })
+        //     .catch(err => console.log(err))
     }
 
     return (
@@ -107,14 +142,15 @@ export default function Snippit(props) {
                 </div>
                 {session?.user.id && (
                     <div className='px-3 py-1 flex flex-row gap-5 select-none'>
-                        <div className='flex flex-row gap-2'>
+                        <div className='flex flex-row gap-2 items-center'>
                             <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
                                 <Image 
-                                    src={ArrowUp}
+                                    src={vote.up ? ArrowUpTrue : ArrowUpFalse}
                                     width={20}
                                     height={20}
                                     alt='up vote'
                                     className='cursor-pointer'
+                                    onClick={() => handleVote("up", !vote.up)}
                                 />
                             </motion.div>
                             <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
@@ -122,11 +158,12 @@ export default function Snippit(props) {
                             </motion.p>
                             <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>
                                 <Image
-                                    src={ArrowDown}
+                                    src={vote.down ? ArrowDownTrue : ArrowDownFalse}
                                     width={20}
                                     height={20}
                                     alt='down vote'
                                     className='cursor-pointer'
+                                    onClick={() => handleVote("down", !vote.down)}
                                 />
                             </motion.div>
                         </div>
