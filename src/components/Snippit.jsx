@@ -1,14 +1,14 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { motion, spring } from "framer-motion";
+import { motion } from "framer-motion";
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import Image from 'next/image';
 
-import HeartOutline from "@/assets/svg/heart-outline.svg"
-import HeartFilled from "@/assets/svg/heart.svg"
+import HeartOutline from "@/assets/svg/heart-new.svg"
+import HeartFilled from "@/assets/svg/heart-new-filled.svg"
 import ArrowUp from "@/assets/svg/caret-up-outline.svg"
 import ArrowDown from "@/assets/svg/caret-down-outline.svg"
 import CopyIcon from "@/assets/svg/copy-outline.svg"
@@ -105,41 +105,43 @@ export default function Snippit(props) {
                         <motion.p key={i} className='hover:underline' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.2 + 0.2 }}>#{e}</motion.p>
                     ))}
                 </div>
-                <div className='px-3 py-1 flex flex-row gap-5 select-none'>
-                    <div className='flex flex-row gap-2'>
-                        <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                {session?.user.id && (
+                    <div className='px-3 py-1 flex flex-row gap-5 select-none'>
+                        <div className='flex flex-row gap-2'>
+                            <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
+                                <Image 
+                                    src={ArrowUp}
+                                    width={20}
+                                    height={20}
+                                    alt='up vote'
+                                    className='cursor-pointer'
+                                />
+                            </motion.div>
+                            <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
+                                {votes}
+                            </motion.p>
+                            <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>
+                                <Image
+                                    src={ArrowDown}
+                                    width={20}
+                                    height={20}
+                                    alt='down vote'
+                                    className='cursor-pointer'
+                                />
+                            </motion.div>
+                        </div>
+                        <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }} className='grid place-items-center'>
                             <Image 
-                                src={ArrowUp}
+                                src={favorite ? HeartFilled : HeartOutline}
                                 width={20}
                                 height={20}
-                                alt='up vote'
+                                alt='favorite'
                                 className='cursor-pointer'
-                            />
-                        </motion.div>
-                        <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
-                            {votes}
-                        </motion.p>
-                        <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>
-                            <Image
-                                src={ArrowDown}
-                                width={20}
-                                height={20}
-                                alt='down vote'
-                                className='cursor-pointer'
+                                onClick={() => handleFavorite()}
                             />
                         </motion.div>
                     </div>
-                    <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.8 }}>
-                        <Image 
-                            src={favorite ? HeartFilled : HeartOutline}
-                            width={20}
-                            height={20}
-                            alt='favorite'
-                            className='cursor-pointer'
-                            onClick={() => handleFavorite()}
-                        />
-                    </motion.div>
-                </div>
+                )}
             </div>
         </motion.div>
     )
