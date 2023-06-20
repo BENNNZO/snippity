@@ -51,10 +51,10 @@ export default function page() {
     }
 
     useEffect(() => {
-        titleRef.current.value = "title test",
-        codeRef.current.value = "let snippity = 'the home of copy and paste'",
-        languageRef.current.value = "jsx",
-        tagsRef.current.value = "tag test 1, tag test 2"
+        setTitle("title test")
+        setCode("let snippity = 'the home of copy and paste'"),
+        setLanguage("jsx"),
+        setTags(["tag1", "tag2"])
     }, [])
 
     return (
@@ -66,16 +66,6 @@ export default function page() {
                 <input ref={tagsRef} value={tags} onChange={e => setTags(e.target.value.split(',').map(e => e.trim()))} type="text" placeholder='Tags'/>
                 <button className='bg-white px-3 py-2 mt-5 rounded-md'>CREATE SNIPPIT</button>
             </form>
-            {/* <SyntaxHighlighter 
-                language={language}
-                style={gradientDark}
-                customStyle={{ background: "rgb(0, 0, 0, 0.5)" }}
-                className="h-[500px] bg-black/50 w-full rounded-md"
-                lineNumberStyle={{ minWidth: "3em", paddingRight: "1.5em", fontStyle: "italic", opacity: 0.25 }}
-                showLineNumbers
-            >
-                {code}
-            </SyntaxHighlighter> */}
             <SampleSnippit code={code} language={language} title={title} tags={tags} />
         </div>
     )
