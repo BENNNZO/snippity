@@ -58,14 +58,17 @@ export default function page() {
     }, [])
 
     return (
-        <div className='flex flex-row justify-center items-center p-20 gap-10'>
-            <form onSubmit={e => handleSubmit(e)} className='flex flex-col justify-between h-full gap-5 w-full'>
-                <input ref={titleRef} value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder='Title'/>
-                <textarea ref={codeRef} value={code} onChange={e => setCode(e.target.value)} cols="30" rows="10"/>
-                <input ref={languageRef} value={language} onChange={e => setLanguage(e.target.value)} type="text" placeholder='Language'/>
-                <input ref={tagsRef} value={tags} onChange={e => setTags(e.target.value.split(',').map(e => e.trim()))} type="text" placeholder='Tags'/>
-                <button className='bg-white px-3 py-2 mt-5 rounded-md'>CREATE SNIPPIT</button>
+        <div className='flex flex-row justify-center h-screen items-center p-20 gap-10'>
+            <form onSubmit={e => handleSubmit(e)} className='flex flex-col justify-between h-[564px] gap-5 w-full'>
+                <input ref={titleRef} value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder='Title' className='py-2 px-3 bg-primary-button rounded-sm shadow-md text-text'/>
+                <textarea ref={codeRef} value={code} onChange={e => setCode(e.target.value)} cols="30" rows="10" className='py-2 px-3 bg-text rounded-sm shadow-md text-primary-button h-full resize-none'/>
+                <input ref={languageRef} value={language} onChange={e => setLanguage(e.target.value)} type="text" placeholder='Language' className='py-2 px-3 bg-primary-button rounded-sm shadow-md text-text'/>
+                <input ref={tagsRef} value={tags} onChange={e => setTags(e.target.value.split(',').map(e => e.trim()))} type="text" placeholder='Tags' className='py-2 px-3 bg-primary-button rounded-sm shadow-md text-text'/>
+                <button className='bg-primary-button/40 border border-secondary-button/10 text-text px-3 py-2 mt-5 rounded-sm'>CREATE SNIPPIT</button>
             </form>
+            <span 
+                className='w-1 h-full bg-primary-button/40'
+            />
             <SampleSnippit code={code} language={language} title={title} tags={tags} />
         </div>
     )
