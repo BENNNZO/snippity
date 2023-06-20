@@ -152,7 +152,7 @@ export default function Snippit(props) {
                         <motion.p key={i} className='hover:underline' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.2 + 0.2 }}>#{e}</motion.p>
                     ))}
                 </div>
-                {session?.user.id && (
+                {session?.user && (
                     <div className='px-3 py-1 flex flex-row gap-5 select-none'>
                         <div className='flex flex-row gap-2 items-center'>
                             <motion.div initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
