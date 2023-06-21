@@ -4,22 +4,20 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
-import { gradientDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import SyntaxHighlighter from "react-syntax-highlighter";
+// import { gradientDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+// import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { dark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+// import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { motion } from 'framer-motion';
 
 import Image from 'next/image';
 
-import HeartOutline from "@/assets/svg/heart-new.svg"
 import HeartFilled from "@/assets/svg/heart-new-filled.svg"
 import ArrowUpTrue from "@/assets/svg/arrow-up-new-filled.svg"
-import ArrowUpFalse from "@/assets/svg/arrow-up-new-filled copy.svg"
-import ArrowDownTrue from "@/assets/svg/arrow-down-new-filled.svg"
 import ArrowDownFalse from "@/assets/svg/arrow-down-new-filled copy.svg"
 import CopyIcon from "@/assets/svg/copy-outline.svg"
-import Checkmark from "@/assets/svg/checkmark-outline.svg"
 import Trash from "@/assets/svg/trash.svg"
-import Loader from "@/assets/svg/loader2.svg"
 
 export default function page() {
     const { data: session } = useSession()
@@ -59,13 +57,15 @@ export default function page() {
 
     return (
         <div className='flex flex-row justify-center h-screen items-center p-20 gap-10'>
-            <form onSubmit={e => handleSubmit(e)} className='flex flex-col justify-between h-[564px] gap-5 w-full'>
-                <input ref={titleRef} value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder='Title' className='py-2 px-3 bg-primary-button rounded-sm shadow-md text-text'/>
-                <textarea ref={codeRef} value={code} onChange={e => setCode(e.target.value)} cols="30" rows="10" className='py-2 px-3 bg-text rounded-sm shadow-md text-primary-button h-full resize-none'/>
-                <input ref={languageRef} value={language} onChange={e => setLanguage(e.target.value)} type="text" placeholder='Language' className='py-2 px-3 bg-primary-button rounded-sm shadow-md text-text'/>
-                <input ref={tagsRef} value={tags} onChange={e => setTags(e.target.value.split(',').map(e => e.trim()))} type="text" placeholder='Tags' className='py-2 px-3 bg-primary-button rounded-sm shadow-md text-text'/>
-                <button className='bg-primary-button/40 border border-secondary-button/10 text-text px-3 py-2 mt-5 rounded-sm'>CREATE SNIPPIT</button>
-            </form>
+            <div className='w-full h-[564px] flex flex-col justify-between'>
+                <form onSubmit={e => handleSubmit(e)} className='flex flex-col shadow-lg justify-between gap-1 w-full h-full p-1 bg-background-dark rounded-md'>
+                    <input ref={titleRef} value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder='Title' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
+                    <textarea ref={codeRef} value={code} onChange={e => setCode(e.target.value)} cols="30" rows="10" className='py-2 px-3 bg-black/50 rounded-md text-text h-full resize-none'/>
+                    <input ref={languageRef} value={language} onChange={e => setLanguage(e.target.value)} type="text" placeholder='Language' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
+                    <input ref={tagsRef} value={tags} onChange={e => setTags(e.target.value.split(',').map(e => e.trim()))} type="text" placeholder='Tags' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
+                </form>
+                <button className='bg-primary-button/40 border shadow-lg border-secondary-button/10 text-text px-3 py-2 mt-5 rounded-sm'>CREATE SNIPPIT</button>
+            </div>
             <span 
                 className='w-1 h-full bg-primary-button/40'
             />
@@ -111,12 +111,12 @@ function SampleSnippit(props) {
             </div>
             <div className='mx-1 shadow-md rounded-lg overflow-hidden'>
                 <SyntaxHighlighter 
-                    language={props.language}
-                    style={gradientDark}
-                    customStyle={{ background: "rgb(0, 0, 0, 0.5)" }}
-                    className="h-[500px] bg-black/50"
-                    lineNumberStyle={{ minWidth: "3em", paddingRight: "1.5em", fontStyle: "italic", opacity: 0.25 }}
-                    showLineNumbers
+                    language="css"
+                    style={dark}
+                    // customStyle={{ background: "rgb(0, 0, 0, 0.5)", border: "none", boxShadow: "none", margin: "none" }}
+                    // className="h-[500px] bg-black/50"
+                    // lineNumberStyle={{ minWidth: "3em", paddingRight: "1.5em", fontStyle: "italic", opacity: 0.25 }}
+                    // showLineNumbers
                 >
                     {props.code}
                 </SyntaxHighlighter>
