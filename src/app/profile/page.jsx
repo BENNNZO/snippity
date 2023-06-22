@@ -63,7 +63,7 @@ export default function Profile() {
                     <h1 className='text-7xl text-yellow-300 leading-normal inline-block'>{`${session?.user.id === id ? "MyProfile" : user.username.replace(" ", "")}`}</h1>
                     <h1 className='text-7xl text-red-400 leading-normal inline-block no-ligs'>{`/>`}</h1>
                 </div>
-                <button className='bg-white px-5 py-2 rounded-md' onClick={() => setFavorites(prev => !prev)}>toggle favorites</button>
+                {/* <button className='bg-white px-5 py-2 rounded-md' onClick={() => setFavorites(prev => !prev)}>toggle favorites</button> */}
                 <div className='mt-10'>
                     <SnippitLoader size={2} snippits={snippits} setSnippits={setSnippits} />
                 </div>
