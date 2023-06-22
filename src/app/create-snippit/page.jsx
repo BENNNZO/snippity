@@ -34,7 +34,6 @@ export default function CreateSnippit() {
     const tagsRef = useRef()
 
     function handleSubmit(e) {
-        e.preventDefault()
         axios.post('/api/snippit', {
             creator: session?.user.id,
             title,
@@ -49,22 +48,22 @@ export default function CreateSnippit() {
     }
 
     useEffect(() => {
-        setTitle("title")
-        setCode("let snippity = 'the home of copy and paste'"),
-        setLanguage("jsx"),
-        setTags(["tag1", "tag2"])
+        // setTitle("title")
+        // setCode("let snippity = 'the home of copy and paste'"),
+        // setLanguage("jsx"),
+        // setTags(["tag1", "tag2"])
     }, [])
 
     return (
         <div className='flex flex-row justify-center h-screen items-center p-20 gap-10'>
             <div className='w-full h-[564px] flex flex-col justify-between'>
-                <form onSubmit={e => handleSubmit(e)} className='flex flex-col shadow-lg justify-between gap-1 w-full h-full p-1 bg-background-dark rounded-md'>
+                <form className='flex flex-col shadow-lg justify-between gap-1 w-full h-full p-1 bg-background-dark rounded-md'>
                     <input ref={titleRef} value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder='Title' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
                     <textarea ref={codeRef} value={code} onChange={e => setCode(e.target.value)} cols="30" rows="10" className='py-2 px-3 bg-black/50 rounded-md text-text h-full resize-none' placeholder='code'/>
                     <input ref={languageRef} value={language} onChange={e => setLanguage(e.target.value)} type="text" placeholder='Language' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
                     <input ref={tagsRef} value={tags} onChange={e => setTags(e.target.value.split(',').map(e => e.trim()))} type="text" placeholder='tag1,tag2...' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
                 </form>
-                <button className='bg-primary-button/40 border shadow-lg border-secondary-button/10 text-text px-3 py-2 mt-5 rounded-sm'>CREATE SNIPPIT</button>
+                <button onClick={() => handleSubmit()} className='bg-primary-button/40 border shadow-lg border-secondary-button/10 text-text px-3 py-2 mt-5 rounded-sm'>CREATE SNIPPIT</button>
             </div>
             <span 
                 className='w-1 h-full bg-primary-button/40'
