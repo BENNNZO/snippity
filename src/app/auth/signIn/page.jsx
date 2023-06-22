@@ -21,7 +21,7 @@ export default async function SignIn() {
             <div className='flex flex-row justify-center items-center'>
                 {providers && Object.values(providers).map((provider) => (
                     <div key={provider.name}>
-                        <button onClick={() => signIn(provider.id, { callbackUrl: "https://www.snippity.dev/" })} className='p-2 bg-primary-button/30 border border-secondary-button/10 rounded-full'>
+                        <button onClick={() => signIn(provider.id, { callbackUrl: "https://www.snippity.dev" })} className='p-2 bg-primary-button/30 border border-secondary-button/10 rounded-full'>
                             <Image 
                                 src={provider.name === "Google" ? Google : undefined}
                                 width={30}
