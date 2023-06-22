@@ -37,19 +37,19 @@ export default function CreateSnippit() {
         e.preventDefault()
         axios.post('/api/snippit', {
             creator: session?.user.id,
-            title: titleRef.current.value,
-            code: codeRef.current.value,
-            language: languageRef.current.value,
-            tags: tagsRef.current.value.split(',').map(e => e.trim())
+            title,
+            code,
+            language,
+            tags
         })
         .then(res => {
-            if (res.status === 200) push('/')
+            if (res.status === 201) push('/')
         })
         .catch(err => console.log(err))
     }
 
     useEffect(() => {
-        setTitle("title test")
+        setTitle("title")
         setCode("let snippity = 'the home of copy and paste'"),
         setLanguage("jsx"),
         setTags(["tag1", "tag2"])
@@ -60,9 +60,9 @@ export default function CreateSnippit() {
             <div className='w-full h-[564px] flex flex-col justify-between'>
                 <form onSubmit={e => handleSubmit(e)} className='flex flex-col shadow-lg justify-between gap-1 w-full h-full p-1 bg-background-dark rounded-md'>
                     <input ref={titleRef} value={title} onChange={e => setTitle(e.target.value)} type="text" placeholder='Title' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
-                    <textarea ref={codeRef} value={code} onChange={e => setCode(e.target.value)} cols="30" rows="10" className='py-2 px-3 bg-black/50 rounded-md text-text h-full resize-none'/>
+                    <textarea ref={codeRef} value={code} onChange={e => setCode(e.target.value)} cols="30" rows="10" className='py-2 px-3 bg-black/50 rounded-md text-text h-full resize-none' placeholder='code'/>
                     <input ref={languageRef} value={language} onChange={e => setLanguage(e.target.value)} type="text" placeholder='Language' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
-                    <input ref={tagsRef} value={tags} onChange={e => setTags(e.target.value.split(',').map(e => e.trim()))} type="text" placeholder='Tags' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
+                    <input ref={tagsRef} value={tags} onChange={e => setTags(e.target.value.split(',').map(e => e.trim()))} type="text" placeholder='tag1,tag2...' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
                 </form>
                 <button className='bg-primary-button/40 border shadow-lg border-secondary-button/10 text-text px-3 py-2 mt-5 rounded-sm'>CREATE SNIPPIT</button>
             </div>
