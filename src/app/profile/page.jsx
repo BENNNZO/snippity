@@ -8,7 +8,7 @@ import { useSession } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import SnippitLoader from '@/components/SnippitLoader';
 
-export default function page() {
+export default function Profile() {
     const { data: session } = useSession()
     const searchParams = useSearchParams() 
     const id = searchParams.get("id")

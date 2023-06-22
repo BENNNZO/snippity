@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Loader from "@/assets/svg/loader2.svg"
 
-export default function loading() {
+export default function Loading() {
     return (
         <div className='grid place-items-center h-screen'>
             <Image 

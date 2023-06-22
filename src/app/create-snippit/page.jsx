@@ -19,7 +19,7 @@ import ArrowDownFalse from "@/assets/svg/arrow-down-new-filled copy.svg"
 import CopyIcon from "@/assets/svg/copy-outline.svg"
 import Trash from "@/assets/svg/trash.svg"
 
-export default function page() {
+export default function CreateSnippit() {
     const { data: session } = useSession()
     const { push } = useRouter()
 
