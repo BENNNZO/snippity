@@ -7,7 +7,7 @@ import dbConnect from "@/utils/dbConnect"
 import User from "@/models/User"
 
 const handler = NextAuth({
-    secret: process.env.SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
     providers: [
         // OAuth authentication providers
         // AppleProvider({
