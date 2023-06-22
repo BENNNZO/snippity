@@ -1,12 +1,12 @@
 "use client"
 
 import React from 'react';
-import { getSession, getProviders, signIn } from 'next-auth/react';
+import { getProviders, signIn } from 'next-auth/react';
 import Image from 'next/image';
 
 import Google from "@/assets/svg/logo-google.svg"
 
-export default async function page() {
+export default async function SignIn() {
     const providers = await getProviders()
 
     return (
@@ -35,14 +35,3 @@ export default async function page() {
         </div>
     )
 }
-
-// export async function getServerSideProps(context) {
-//     const providers = await getProviders()
-//     // const csrfToken = await getCsrfToken(context)
-//     return {
-//         props: {
-//             providers,
-//             // csrfToken
-//         },
-//     }
-// }
