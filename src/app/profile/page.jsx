@@ -29,6 +29,7 @@ export default function Profile() {
                 console.log(res.data.userData)
             })
             .catch(err => console.log(err))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -40,6 +41,7 @@ export default function Profile() {
                 setSnippits(post)
             )
         }, 250);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [favorites])
 
     if (!user || !post) {

@@ -39,6 +39,7 @@ export default function Snippit(props) {
         setTimeout(() => {
             setCopy("")
         }, 3000);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [copy])
 
     function handleDelete() {

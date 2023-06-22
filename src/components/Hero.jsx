@@ -1,14 +1,13 @@
 "use client"
 
 import React from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import ArrowDown from "@/assets/svg/chevron-down-outline.svg"
 
 export default function Hero() {
     const { scrollY } = useScroll()
     const y = useTransform(scrollY, [0, 1000], ["0vh", "30vh"])
-    // const yTransform = useSpring(useTransform(scrollY, [0, 1000], [0, 200]), { stiffness: 100, damping: 30, restDelta: 0.001 })
     const scale = useTransform(scrollY, [0, 1000], [1, 0.6])
     const opacity = useTransform(scrollY, [0, 500], [1, 0])
 
@@ -31,7 +30,7 @@ export default function Hero() {
                     transition={{ delay: 1 }}
                     className='text-text/50 text-center mt-5 text-xl'
                 >
-                    let Snippity = "The home of copy & paste."
+                    let Snippity = {`"`}The home of copy & paste.{`"`}
                 </motion.p>
             </div>
             <motion.div

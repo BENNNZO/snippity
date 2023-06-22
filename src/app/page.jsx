@@ -21,6 +21,7 @@ export default function Home() {
                 page === 0 ? setSnippits(res.data) : setSnippits(prev => prev.concat(res.data))
             })
             .catch(err => console.log(err))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
 
     useEffect(() => {
@@ -31,6 +32,7 @@ export default function Home() {
                 setSnippits(res.data)
             })
             .catch(err => console.log(err))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [search])
 
     if (!snippits) {
@@ -54,7 +56,7 @@ export default function Home() {
                 {search !== "" && snippits.length === 0 ? (
                     <div className='grid place-items-center'>
                         <div className='text-red-300 rounded-sm text-center mb-20 text-xl px-5 py-2 bg-red-900/20 border border-red-200/10 inline-block'>
-                            Your search <strong className='text-text'>"{search}"</strong> did not match any snippits.
+                            Your search <strong className='text-text'>{`"${search}"`}</strong> did not match any snippits.
                         </div>
                     </div>
                 ) : ''}
