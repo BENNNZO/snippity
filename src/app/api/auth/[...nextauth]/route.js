@@ -16,7 +16,7 @@ const handler = NextAuth({
         signIn: '/auth/signIn'
     },
     callbacks: {
-        session: async ({ session }) => {
+        async session({ session }) {
             try {
                 await dbConnect()
 
@@ -31,7 +31,7 @@ const handler = NextAuth({
                 return session
             }
         },
-        signIn: async ({ profile }) => {
+        async signIn({ profile }) {
             console.log(profile)
             try {
                 await dbConnect()
@@ -45,6 +45,13 @@ const handler = NextAuth({
                 console.log(err)
                 return false
             }
+        },
+        async redirect({ url, baseUrl }) {
+          // Allows relative callback URLs
+          if (url.startsWith("/")) return `${baseUrl}${url}`
+          // Allows callback URLs on the same origin
+          else if (new URL(url).origin === baseUrl) return url
+          return baseUrl
         }
     }
 })
