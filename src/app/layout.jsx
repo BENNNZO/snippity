@@ -1,8 +1,7 @@
-"use client"
-
 import './globals.css'
 import NavBar from '@/components/NavBar'
-import { SessionProvider } from 'next-auth/react'
+// import { SessionProvider } from 'next-auth/react'
+import SessionContext from '@/utils/SessionContext'
 
 export const metadata = {
 	title: 'Snippity',
@@ -13,10 +12,10 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<body className="bg-background">
-				<SessionProvider>
+				<SessionContext>
 					<NavBar />
 					{children}
-				</SessionProvider>
+				</SessionContext>
 			</body>
 		</html>
 	)

@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/default-highlight";
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import HeartOutline from "@/assets/svg/heart-new.svg"
 import HeartFilled from "@/assets/svg/heart-new-filled.svg"
@@ -22,6 +23,7 @@ import { gradientDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export default function Snippit(props) {
     const { data: session } = useSession()
+    const { push } = useRouter()
     const { _id, creator, code, votes, tags, language, title } = props.snippit 
 
     const [copy, setCopy] = useState('')
@@ -111,7 +113,7 @@ export default function Snippit(props) {
                 </div>
                 <div className='flex flex-row gap-3 items-center'>
                     <motion.p className='text-text' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>{title}</motion.p>
-                    <motion.p className='text-text/30 text-sm' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }}>@{creator.username.replace(" ", "")}</motion.p>
+                    <motion.p className='text-text/30 text-sm hover:underline cursor-pointer' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.6 }} onClick={() => push(`/profile?id=${creator._id}`)}>@{creator.username.replace(" ", "")}</motion.p>
                 </div>
                 <motion.div className='flex flex-row gap-3' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }}>
                     <Image 

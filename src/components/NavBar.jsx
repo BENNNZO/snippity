@@ -6,7 +6,7 @@ import { useSession, signIn, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image';
 
-export default function NevBar() {
+export default function NavBar() {
     const { push } = useRouter()
     const { data: session } = useSession()
 
@@ -41,7 +41,7 @@ export default function NevBar() {
                         >
                             SIGN OUT
                         </button>
-                        <div className='grid place-items-center' onClick={() => push(`/profile?profile=${session?.user.id}`)}>
+                        <div className='grid place-items-center' onClick={() => push(`/profile?id=${session?.user.id}`)}>
                             <Image
                                 src={session.user.image}
                                 width={28}
