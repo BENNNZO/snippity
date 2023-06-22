@@ -5,9 +5,9 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import SyntaxHighlighter from "react-syntax-highlighter";
-// import { gradientDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
+import { gradientDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 // import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { dark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+// import { dark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 // import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { motion } from 'framer-motion';
 
@@ -112,11 +112,11 @@ function SampleSnippit(props) {
             <div className='mx-1 shadow-md rounded-lg overflow-hidden'>
                 <SyntaxHighlighter 
                     language="css"
-                    style={dark}
-                    // customStyle={{ background: "rgb(0, 0, 0, 0.5)", border: "none", boxShadow: "none", margin: "none" }}
-                    // className="h-[500px] bg-black/50"
-                    // lineNumberStyle={{ minWidth: "3em", paddingRight: "1.5em", fontStyle: "italic", opacity: 0.25 }}
-                    // showLineNumbers
+                    style={gradientDark}
+                    customStyle={{ background: "rgb(0, 0, 0, 0.5)", border: "none", boxShadow: "none", margin: "none" }}
+                    className="h-[500px] bg-black/50"
+                    lineNumberStyle={{ minWidth: "3em", paddingRight: "1.5em", fontStyle: "italic", opacity: 0.25 }}
+                    showLineNumbers
                 >
                     {props.code}
                 </SyntaxHighlighter>
