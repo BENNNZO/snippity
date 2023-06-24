@@ -14,25 +14,34 @@ export default function Home() {
     const [size, setSize] = useState(2) //   1 === large   /   2 === medium   /   3 === small
     const [snippits, setSnippits] = useState()
     const [page, setPage] = useState(0)
+    const [loaded, setLoaded] = useState(false)
 
     useEffect(() => {
-        axios.get(`/api/snippit/query/${page}/${search.startsWith("#") ? search.slice(1) : search}/${search.startsWith("#")}`)
-            .then(res => {
-                page === 0 ? setSnippits(res.data) : setSnippits(prev => prev.concat(res.data))
-            })
-            .catch(err => console.log(err))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page])
+        setLoaded(true)
+    }, [])
 
     useEffect(() => {
-        setPage(0)
-        axios.get(`/api/snippit/query/${page}/${search.startsWith("#") ? search.slice(1) : search}/${search.startsWith("#")}`)
+        if (loaded) {
+            axios.get(`/api/snippit/query/${page}/${search.startsWith("#") ? search.slice(1) : search}/${search.startsWith("#")}`)
+                .then(res => {
+                    page === 0 ? setSnippits(res.data) : setSnippits(prev => prev.concat(res.data))
+                })
+                .catch(err => console.log(err))
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }
+    }, [page, loaded])
+
+    useEffect(() => {
+        if (loaded) {
+            setPage(0)
+            axios.get(`/api/snippit/query/${page}/${search.startsWith("#") ? search.slice(1) : search}/${search.startsWith("#")}`)
             .then(res => {
                 console.log(res.data)
                 setSnippits(res.data)
             })
             .catch(err => console.log(err))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+        }
     }, [search])
 
     if (!snippits) {

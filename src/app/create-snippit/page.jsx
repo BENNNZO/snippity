@@ -48,10 +48,10 @@ export default function CreateSnippit() {
     }
 
     useEffect(() => {
-        // setTitle("title")
-        // setCode("let snippity = 'the home of copy and paste'"),
-        // setLanguage("jsx"),
-        // setTags(["tag1", "tag2"])
+        setTitle("title")
+        setCode("let snippity = 'the home of copy and paste'"),
+        setLanguage("jsx"),
+        setTags(["tag1", "tag2"])
     }, [])
 
     return (
