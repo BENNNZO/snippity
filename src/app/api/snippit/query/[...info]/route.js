@@ -1,5 +1,6 @@
 import dbConnect from "@/utils/dbConnect"
 import Snippit from "@/models/Snippit"
+import User from "@/models/User"
 
 export async function GET(req, { params }) {
     try {

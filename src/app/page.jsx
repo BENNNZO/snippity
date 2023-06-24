@@ -26,7 +26,7 @@ export default function Home() {
                 .then(res => {
                     page === 0 ? setSnippits(res.data) : setSnippits(prev => prev.concat(res.data))
                 })
-                .catch(err => console.log(err))
+                .catch(err => console.log([err, "ln 29"]))
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }
     }, [page, loaded])
@@ -39,7 +39,7 @@ export default function Home() {
                 console.log(res.data)
                 setSnippits(res.data)
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log([err, "ln 42"]))
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }
     }, [search])
