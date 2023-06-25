@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import User from "@/models/User";
+import Snippit from "@/models/Snippit";
 
 let cached = global.mongoose
 

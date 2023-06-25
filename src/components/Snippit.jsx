@@ -152,7 +152,7 @@ export default function Snippit(props) {
             <div className='flex flex-row-reverse justify-between'>
                 <div className='text-text/50 flex flex-row gap-3 px-3 py-1 cursor-pointer'>
                     {tags.map((e, i) => (
-                        <motion.p key={i} className='hover:underline' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.2 + 0.2 }}>#{e}</motion.p>
+                        <motion.p key={i} className='hover:underline' initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.2 + 0.2 }} onClick={() => props.setSearch(`#${e}`)}>#{e}</motion.p>
                     ))}
                 </div>
                 {session?.user && (

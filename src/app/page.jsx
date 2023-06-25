@@ -61,7 +61,7 @@ export default function Home() {
                 <Hero />
                 <HeroBG />
                 <SearchBar value={search} onChange={setSearch} setSize={setSize} size={size} />
-                <SnippitLoader size={size} snippits={snippits} setSnippits={setSnippits} />
+                <SnippitLoader size={size} snippits={snippits} setSnippits={setSnippits} setSearch={setSearch} />
                 {search !== "" && snippits.length === 0 ? (
                     <div className='grid place-items-center'>
                         <div className='text-red-300 rounded-sm text-center mb-20 text-xl px-5 py-2 bg-red-900/20 border border-red-200/10 inline-block'>

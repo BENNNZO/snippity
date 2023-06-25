@@ -18,6 +18,7 @@ import ArrowUpTrue from "@/assets/svg/arrow-up-new-filled.svg"
 import ArrowDownFalse from "@/assets/svg/arrow-down-new-filled copy.svg"
 import CopyIcon from "@/assets/svg/copy-outline.svg"
 import Trash from "@/assets/svg/trash.svg"
+import Loader from "@/assets/svg/loader2.svg"
 
 export default function CreateSnippit() {
     const { data: session } = useSession()
@@ -27,6 +28,7 @@ export default function CreateSnippit() {
     const [code, setCode] = useState("")
     const [title, setTitle] = useState("")
     const [tags, setTags] = useState([])
+    const [disabled, setDisabled] = useState(false)
 
     const titleRef = useRef()
     const codeRef = useRef()
@@ -34,6 +36,7 @@ export default function CreateSnippit() {
     const tagsRef = useRef()
 
     function handleSubmit(e) {
+        setDisabled(true)
         axios.post('/api/snippit', {
             creator: session?.user.id,
             title,
@@ -44,7 +47,10 @@ export default function CreateSnippit() {
         .then(res => {
             if (res.status === 201) push('/')
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+            setDisabled(false)
+        })
     }
 
     useEffect(() => {
@@ -63,7 +69,19 @@ export default function CreateSnippit() {
                     <input ref={languageRef} value={language} onChange={e => setLanguage(e.target.value)} type="text" placeholder='Language' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
                     <input ref={tagsRef} value={tags} onChange={e => setTags(e.target.value.split(',').map(e => e.trim()))} type="text" placeholder='tag1,tag2...' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
                 </form>
-                <button onClick={() => handleSubmit()} className='bg-primary-button/40 border shadow-lg border-secondary-button/10 text-text px-3 py-2 mt-5 rounded-sm'>CREATE SNIPPIT</button>
+                    <button disabled={disabled} onClick={() => handleSubmit()} className='bg-primary-button/50 group h-12 relative border shadow-lg border-secondary-button/10 text-text px-3 py-2 mt-5 rounded-sm'>
+                        {disabled ? (
+                            <Image 
+                                src={Loader}
+                                width={30}
+                                height={30}
+                                alt='loading svg animation'
+                                className='absolute_center'
+                            />
+                        ) : (
+                            <p className='group-hover:tracking-wide transition-all'>CREATE NEW SNIPPIT!</p>
+                        )}
+                    </button>
             </div>
             <span 
                 className='w-1 h-full bg-primary-button/40'
