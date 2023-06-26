@@ -69,7 +69,7 @@ export default function CreateSnippit() {
                     <input ref={languageRef} value={language} onChange={e => setLanguage(e.target.value)} type="text" placeholder='Language' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
                     <input ref={tagsRef} value={tags} onChange={e => setTags(e.target.value.split(',').map(e => e.trim()))} type="text" placeholder='tag1,tag2...' className='py-2 px-3 bg-black/30 rounded-md text-text'/>
                 </form>
-                    <button disabled={disabled} onClick={() => handleSubmit()} className='bg-primary-button/50 group h-12 relative border shadow-lg border-secondary-button/10 text-text px-3 py-2 mt-5 rounded-sm'>
+                    <button disabled={disabled} onClick={() => handleSubmit()} className='bg-primary-button/50 group h-12 relative shadow-lg text-text px-3 py-2 mt-5 rounded-md'>
                         {disabled ? (
                             <Image 
                                 src={Loader}
@@ -83,9 +83,9 @@ export default function CreateSnippit() {
                         )}
                     </button>
             </div>
-            <span 
+            {/* <span 
                 className='w-1 h-full bg-primary-button/40'
-            />
+            /> */}
             <SampleSnippit code={code} language={language} title={title} tags={tags} />
         </div>
     )
