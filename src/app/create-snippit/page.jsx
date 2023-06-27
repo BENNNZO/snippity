@@ -6,9 +6,6 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { gradientDark } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
-// import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
-// import { dark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-// import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { motion } from 'framer-motion';
 
 import Image from 'next/image';
