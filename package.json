@@ -16,7 +16,7 @@
     "eslint-config-next": "13.4.4",
     "framer-motion": "^10.12.16",
     "highlight.js": "^11.8.0",
-    "mongoose": "^7.2.3",
+    "mongoose": "^7.6.11",
     "next": "13.4.4",
     "next-auth": "^4.22.1",
     "postcss": "8.4.24",

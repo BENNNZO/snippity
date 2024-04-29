@@ -81,7 +81,7 @@ export default function Snippit(props) {
                         if (option === "up") {
                             setVote({ up: value, down: false })
                             console.log(controlVotes)
-                             setClientVotes(controlVotes + 1)
+                            setClientVotes(controlVotes + 1)
                         } else {
                             setVote({ up: false, down: value })
                             setClientVotes(controlVotes - 1)
